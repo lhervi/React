@@ -1,26 +1,21 @@
-
 import axios from 'axios';
 import Cookies from 'universal-cookies';
+import md5 from 'md5';
+
+e.preventDefault();
 
 function validateAccess(e, email, password){
 
-  e.preventDefault()
-
   const cookies = new cookies();
-  const url="http://localhost:3001/ususarios";
+  const url = "http://localhost:3001/ususarios";
 
-  startSesion = async () =>
-    await axios.get(url, {params: { username: email, password: password}}
-        .then (response => {console.log(response.data)});
-    })
-    .catch(erros=>{
+  let startSesion = async () => {
+    await axios.get(url, {params: {username: email, password: md5(password)}})}  
+      .then (response => {
+        console.log(response.data);
+      })
+    .catch(error => {
         console.log(error);
     })
-
-  
-  
-   
-  
-} 
-
+}
 export default validateAccess

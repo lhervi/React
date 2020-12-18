@@ -1,6 +1,8 @@
 import React from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import { setEmail, setPassword, loginProcess, selectPassword, selectEmail} from './loginSlice';
+import validateAccess from './validateAccess';
+
 
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -17,49 +19,47 @@ import { makeStyles } from '@material-ui/core/styles';
 //import md5 from 'md5';
 import Container from '@material-ui/core/Container';
 
-
-
-function Footer() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://bardasz.com/">
-        Bardasz.com
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
-
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-}));
-
 export function Login() {
   const dispatch = useDispatch();
 
   const userEmail = useSelector(selectEmail);
   const userPass = useSelector(selectPassword);
-  
+
  
+  const useStyles = makeStyles((theme) => ({
+    paper: {
+      marginTop: theme.spacing(8),
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+    },
+    avatar: {
+      margin: theme.spacing(1),
+      backgroundColor: theme.palette.secondary.main,
+    },
+    form: {
+      width: '100%', // Fix IE 11 issue.
+      marginTop: theme.spacing(1),
+    },
+    submit: {
+      margin: theme.spacing(3, 0, 2),
+    },
+  }));
+
   const classes = useStyles();
+
+  function Footer() {
+    return (
+      <Typography variant="body2" color="textSecondary" align="center">
+        {/*'Copyright © '*/}
+        <Link color="inherit" href="https://bardasz.com/">
+          Bardasz.com
+        </Link>{' '}
+        {new Date().getFullYear()}
+        {'.'}
+      </Typography>
+    );
+  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -106,7 +106,7 @@ export function Login() {
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick={(e)=>dispatch(loginProcess(e, userEmail, userPass))}
+            onClick={(e) => validateAccess(e, userEmail, userPass)}
           >
             Sign In
           </Button>

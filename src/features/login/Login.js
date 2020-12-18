@@ -16,7 +16,7 @@ import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-//import md5 from 'md5';
+import md5 from 'md5';
 import Container from '@material-ui/core/Container';
 
 export function Login() {
@@ -94,7 +94,7 @@ export function Login() {
             type="password"
             id="password"
             autoComplete="current-password"
-            onChange={(e)=>dispatch(setPassword(e.target.value))}
+            onChange={(e)=>dispatch(setPassword(md5(e.target.value)))}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}

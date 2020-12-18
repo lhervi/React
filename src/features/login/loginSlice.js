@@ -12,7 +12,7 @@ export const slice = createSlice({
     },    
     setPassword: (state, action) => {      
       state.password = action.payload;     
-    },    
+    },  
   },
 });
 

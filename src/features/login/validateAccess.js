@@ -15,13 +15,7 @@ function validateAccess(e, email, password){
   const prueba = async ()=> {
     await axios.get(url)
       .then(response => console.log(response.data))};
-
-  //fetch (url, userInfo )
-  const req = new Request(url, method:('GET', body: userInfo));
-  fetch (req)
-   .then(res =>res.json())
-     .then(data => console.log(data));  
-
+  
   const startSesion = async () => {
     await axios.get(url, {params: userInfo})  
       .then (response => {

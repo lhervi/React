@@ -1,7 +1,7 @@
 import React from 'react';
 import {useSelector, useDispatch} from 'react-redux';
-import { setEmail, setPassword, loginProcess, selectPassword, selectEmail} from './loginSlice';
-import validateAccess from './validateAccess';
+import { setEmail, setPassword, setProcessing, selectPassword, selectEmail, selectProcessing} from './loginSlice';
+import ValidateAccess from './validateAccess';
 
 
 import Avatar from '@material-ui/core/Avatar';
@@ -24,7 +24,7 @@ export function Login() {
 
   const userEmail = useSelector(selectEmail);
   const userPass = useSelector(selectPassword);
-
+  const userProcessing = useSelector(selectProcessing); 
  
   const useStyles = makeStyles((theme) => ({
     paper: {
@@ -48,7 +48,7 @@ export function Login() {
 
   const classes = useStyles();
 
-  function Footer() {
+    function Footer() {
     return (
       <Typography variant="body2" color="textSecondary" align="center">
         {/*'Copyright © '*/}
@@ -59,6 +59,13 @@ export function Login() {
         {'.'}
       </Typography>
     );
+  }
+
+  async function Validate(e){
+    e.preventDefault();
+    dispatch(setProcessing(true));    
+    const validateAccessResult = await ValidateAccess(userEmail, userPass);
+    validateAccessResult ? alert("Access Granted") : alert("Access Denied");
   }
 
   return (
@@ -81,8 +88,8 @@ export function Login() {
             label="Email Address"
             name="email"
             autoComplete="email"
-            autoFocus
-            onChange={(e)=>dispatch(setEmail(e.target.value))}
+            autoFocus            
+            onChange={e => dispatch(setEmail(e.target.value))}
           />
           <TextField
             variant="outlined"
@@ -91,10 +98,10 @@ export function Login() {
             fullWidth
             name="password"
             label="Password"
-            type="password"
+            type="password"            
             id="password"
-            autoComplete="current-password"
-            onChange={(e)=>dispatch(setPassword(md5(e.target.value)))}
+            autoComplete="current-password"            
+            onChange={e => dispatch(setPassword(md5(e.target.value)))}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
@@ -106,7 +113,7 @@ export function Login() {
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick={(e) => validateAccess(e, userEmail, userPass)}
+            onClick={e => Validate(e)}
           >
             Sign In
           </Button>

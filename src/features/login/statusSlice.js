@@ -1,49 +1,44 @@
 
 import { createSlice } from '@reduxjs/toolkit';
 
-const loginStatus = {
-    "loginOk": '',
-    "welcome": "Welcome",
-    "loginFailed": 'The combination of username and password you have entered is incorrect',
-    "connectionProblem": "WEB Connection failed... ",
-    "loginInProcess": "Please wait, login in process",
-}
 
-export const slice = createSlice({
+export const statusSlice = createSlice({
   name: 'status',
   initialState: {
     "login": '',
-    "waiting": false,
+    "waiting": false, 
     "connectionStatus": '',
-    "userLogged":false,
+    "userLogged": false,
   },
   reducers: {
     setLoginOk: (state, action) => {      
-        state.login = loginStatus.welcome + action.payload;          
+        state.login = action.payload;          
       },
-      setLoginInProcess: (state) => {      
-        state.login = loginStatus.loginIn;
+      setLoginInProcess: (state, action) => {      
+        state.login = action.payload;
       },
-    setLoginFailed: (state) => {      
-      state.login = loginStatus.loginFailed;
+    setLoginFailed: (state, action) => {      
+      state.login = action.payload;
     },    
-    setWaitingTrue: (state) => {      
-      state.waiting = true;     
+    setWaitingTrue: (state, action) => {      
+      state.waiting = action.payload;     
     },
-    setWaitingFalse: (state) => {      
-        state.waiting = false;     
+    setWaitingFalse: (state, action) => {      
+        state.waiting = action.payload;     
       },
-    setUserLogged: (state) => {
-        state.userLogged = 'true';
+    setUserLogged: (state, action) => {
+        state.userLogged = action.payload;
     },
   },
 });
 
-export const {setLoginOk, setLoginInProcess, setLoginFailed, setWaitingTrue, setWaitingFalse, setUserLogged} = slice.actions;
-const st = state.status;
-export const selectLogin = state => st.login;
-export const selectWaiting = state => st.password;
-export const selectConnectionStatus = state => st.connectionStatus;
-export const selectUserLogged = state => st.userLogged;
+const {actions, reducer} = statusSlice; 
 
-export default slice.reducer;
+export const {setLoginOk, setLoginInProcess, setLoginFailed, setWaitingTrue, setWaitingFalse, setUserLogged} = actions;
+
+export const selectLogin = state => state.status.login;
+export const selectWaiting = state => state.status.waiting;
+export const selectConnectionStatus = state => state.status.connectionStatus;
+export const selectUserLogged = state => state.status.userLogged;
+
+export default reducer;

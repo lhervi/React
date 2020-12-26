@@ -3,6 +3,7 @@
 // This is a function to process the email and password recevied from Login.js
 // This function set up the Logins's statusState
 
+
 import axios from 'axios';
 //import Cookies from 'universal-cookies';
 
@@ -20,51 +21,51 @@ async function ValidateAccess(email, password){
   var statusLogin = false;
 
   const urlApi = "http://localhost:3001/users";
-  const userInfo = {email: email, password: password};
-    
-  function delay() {
-    console.log("waiting")
-    return new Promise(resolve=> {
-      let miliseconds = Math.round(Math.random()*3*1000);      
-      setTimeout(() => {
-        resolve(0);      
-      }, miliseconds);
-    })   
-  }
+  const userInfo = {email: email, password: password};  
+  const userData = {id:'', middle:'', lastname:'', name:'', username:'', email:'', password:''};
+  const connectionResult = {result: '', connectionStatus: 0};
+  
 
-  
-  async function fakeConnectionTime() {            
-      const result = await delay();
-      (console.log("Finished"));
-  }
-  
-  
-  axios.get(urlApi, {params: userInfo})
-   .then(resp=>{  
-      if (resp.data.length>0){     
-        
-        console.log("Found it!!!");        
-        const {id, middle, lastname ,name, username, email} = resp.data[0];
-        console.log(id, middle, lastname ,name, username, email);
-        statusLogin = true;    
-           
-      }else{        
-        
-        console.log("Email or password are no registered");
-        
-      };
-    }, error => {    
-      console.log(`Something wrong happened... ${error}`);
+ try{  
+  const resp = await axios.get(urlApi, {params: userInfo});
+  connectionResult.connectionStatus = resp.request.status;
+          
+    if (resp.request.status===200 && resp.data.length>0){
       
-    }).catch(error =>{
-        console.log(`Something unexpected happened...: ${error}`);
-        
-      });
+      statusLogin = true;                                // Login process ok   
+      
+      const {id, middle, lastname ,name, username, email, password} = resp.data[0]; 
+      connectionResult.result= 'User found it';
+      console.log(connectionResult.result);   
+      
+      userData.id= id;
+      userData.middle= middle;
+      userData.lastname= lastname;
+      userData.name= name;
+      userData.username= username;
+      userData.email= email;
+      userData.password= password;
 
-      const statusPromise = new Promise(function(status, fail){
-        status(statusLogin);        
-        });
-      return statusPromise
+      
+          
+    } else if (resp.request.status===200 && resp.data.length===0) {        
+      
+      connectionResult.result= 'Email or password not registered';      
+      console.log(connectionResult.result);   // email/user no founded
+    
+    } else {
+      connectionResult.result = 'There is a problem to conmunicate with the DB source'
+      console.log(connectionResult.result);
+    }
+
+    return new Promise (function (status){     
+      status({status: statusLogin, userData, connectionResult});
+    })      
+
+}catch{
+  console.log(Error)
+}
+
 }
 
 export default ValidateAccess

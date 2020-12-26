@@ -2,6 +2,7 @@ import React from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import { setEmail, setPassword, setProcessing, selectPassword, selectEmail, selectProcessing} from './loginSlice';
 import ValidateAccess from './validateAccess';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 
 import Avatar from '@material-ui/core/Avatar';
@@ -18,6 +19,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import md5 from 'md5';
 import Container from '@material-ui/core/Container';
+ 
 
 export function Login() {
   const dispatch = useDispatch();
@@ -27,6 +29,12 @@ export function Login() {
   const userProcessing = useSelector(selectProcessing); 
  
   const useStyles = makeStyles((theme) => ({
+    root: {
+      display: 'flex',
+      '& > * + *': {
+        marginLeft: theme.spacing(2),
+      }
+    },
     paper: {
       marginTop: theme.spacing(8),
       display: 'flex',
@@ -48,6 +56,15 @@ export function Login() {
 
   const classes = useStyles();
 
+  function delay(t) {       
+   
+    let miliseconds = Math.round(Math.random()*t*1000);      
+    return new Promise (function (cadena){      
+      setTimeout(cadena, miliseconds);      
+    })
+  } 
+ 
+
     function Footer() {
     return (
       <Typography variant="body2" color="textSecondary" align="center">
@@ -61,12 +78,41 @@ export function Login() {
     );
   }
 
-  async function Validate(e){
+  function Validate(e){
     e.preventDefault();
-    dispatch(setProcessing(true));    
-    const validateAccessResult = await ValidateAccess(userEmail, userPass);
-    validateAccessResult ? alert("Access Granted") : alert("Access Denied");
-  }
+    
+    dispatch(setProcessing(true));   
+    
+    ValidateAccess(userEmail, userPass).then(function(validateAccessResult){
+      if (validateAccessResult.status){ 
+
+        const {id, middle, lastname ,name, username, email, password} =validateAccessResult.userData
+        console.log(validateAccessResult.userData)
+        
+        
+        // Welcome message
+       
+        // Actualizar las cookies
+        
+      }else{
+
+        //alert("Access Denied");
+
+        //Limpiar campo de password
+       
+      }
+
+      try{
+        delay(5).then(function(result){
+        //alert("en then del fakeConnectionTime ");
+        dispatch(setProcessing(false));
+        });      
+      }catch{
+        (console.log(Error));
+      }
+    })
+  }    
+  
 
   return (
     <Container component="main" maxWidth="xs">
@@ -77,7 +123,15 @@ export function Login() {
         </Avatar>
         <Typography component="h1" variant="h5">
           Sign in
-        </Typography>
+        </Typography> 
+          <Grid>
+            -
+          </Grid>   
+          <Grid>
+            <Grid>              
+              {"Access granted. You are now logged in"}
+            </Grid>
+          </Grid>
         <form className={classes.form} noValidate>
           <TextField
             variant="outlined"
@@ -104,16 +158,20 @@ export function Login() {
             onChange={e => dispatch(setPassword(md5(e.target.value)))}
           />
           <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
+            control={<Checkbox value="remember" color="primary" />}           
+          />  
+          <CircularProgress 
+            variant="indeterminate" 
+            thickness={userProcessing ? .8: 0}                
+            />
+          <label>{userProcessing && "Login in progress..."}</label>
           <Button
             type="submit"
             fullWidth
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick={e => Validate(e)}
+            onClick={(e) => Validate(e)}            
           >
             Sign In
           </Button>

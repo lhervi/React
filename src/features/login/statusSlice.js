@@ -1,12 +1,10 @@
 
 import { createSlice } from '@reduxjs/toolkit';
 
-
 export const statusSlice = createSlice({
   name: 'status',
   initialState: {
-    "login": '',
-    "waiting": false, 
+    "loginTime": [],    
     "connectionStatus": '',
     "userLogged": false,
   },

@@ -5,7 +5,7 @@ export const slice = createSlice({
   initialState: {
     email: '',
     password: '',
-    processing: false,
+    processing: false,    
   },
     
   reducers: {

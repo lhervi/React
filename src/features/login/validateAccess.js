@@ -23,19 +23,22 @@ async function ValidateAccess(email, password){
   const urlApi = "http://localhost:3001/users";
   const userInfo = {email: email, password: password};  
   const userData = {id:'', middle:'', lastname:'', name:'', username:'', email:'', password:''};
-  const connectionResult = {result: '', connectionStatus: 0};
+  const connectionResult = {result: '', connectionStatusNumber: 0};   // result: text describing the status  
+                                                                      // connectionStatus:it's a HTML numeric code
+
   
 
  try{  
   const resp = await axios.get(urlApi, {params: userInfo});
-  connectionResult.connectionStatus = resp.request.status;
+  
+  connectionResult.connectionStatusNumber = resp.request.status;  
           
     if (resp.request.status===200 && resp.data.length>0){
       
       statusLogin = true;                                // Login process ok   
       
       const {id, middle, lastname ,name, username, email, password} = resp.data[0]; 
-      connectionResult.result= 'User found it';
+      connectionResult.result= 'Access granted. You are now logged in';
       console.log(connectionResult.result);   
       
       userData.id= id;
@@ -44,11 +47,9 @@ async function ValidateAccess(email, password){
       userData.name= name;
       userData.username= username;
       userData.email= email;
-      userData.password= password;
-
-      
+      userData.password= password;      
           
-    } else if (resp.request.status===200 && resp.data.length===0) {        
+    } else if (resp.request.status===200 && resp.data.length===0) {
       
       connectionResult.result= 'Email or password not registered';      
       console.log(connectionResult.result);   // email/user no founded

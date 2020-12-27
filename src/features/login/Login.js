@@ -1,6 +1,9 @@
 import React from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import { setEmail, setPassword, setProcessing, selectPassword, selectEmail, selectProcessing} from './loginSlice';
+import {setLoginTries, /*ResetLoginTries,*/ setConnectionStatus, setUserLogged, setUserInfo,
+  /*selectLoginTries,*/ selectConnectionStatus, /*selectUserLogged, selectUserInfo*/} from './statusSlice'
+
 import ValidateAccess from './validateAccess';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
@@ -23,10 +26,11 @@ import Container from '@material-ui/core/Container';
 
 export function Login() {
   const dispatch = useDispatch();
-
   const userEmail = useSelector(selectEmail);
   const userPass = useSelector(selectPassword);
   const userProcessing = useSelector(selectProcessing); 
+  const userConnectionStatus = useSelector(selectConnectionStatus); 
+  //const userTries = useSelector(selectLoginTries);   
  
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -64,7 +68,6 @@ export function Login() {
     })
   } 
  
-
     function Footer() {
     return (
       <Typography variant="body2" color="textSecondary" align="center">
@@ -80,39 +83,29 @@ export function Login() {
 
   function Validate(e){
     e.preventDefault();
-    
-    dispatch(setProcessing(true));   
-    
-    ValidateAccess(userEmail, userPass).then(function(validateAccessResult){
-      if (validateAccessResult.status){ 
-
-        const {id, middle, lastname ,name, username, email, password} =validateAccessResult.userData
-        console.log(validateAccessResult.userData)
-        
-        
-        // Welcome message
-       
-        // Actualizar las cookies
-        
-      }else{
-
-        //alert("Access Denied");
-
-        //Limpiar campo de password
-       
-      }
-
-      try{
-        delay(5).then(function(result){
-        //alert("en then del fakeConnectionTime ");
+    dispatch(setProcessing(true));                   //  Indicates that the processing access has begun        
+    const tr={tryResult:'', time:(()=>new Date())()}
+    const userInfo = {id:'', middle:'', lastname:'' ,name:'', username:'', 
+    email: userEmail, password: userPass};       
+    ValidateAccess(userEmail, userPass).then(function(validateAccessResult){        
+      tr.tryResult = validateAccessResult.connectionResult.connectionStatusNumber; //HTML Code number Eg. 200 / 404
+      delay(5).then(function(result){               // Fake delay
+        if (validateAccessResult.status) {
+          dispatch(setUserLogged(true))          
+          const {id, middle, lastname ,name, username} = validateAccessResult.userData;
+          userInfo.Id = id;
+          userInfo.lastname = lastname;
+          userInfo.middle = middle;
+          userInfo.name = name;        
+          userInfo.username = username;                 
+          dispatch(setUserInfo(userInfo));          
+        };  // If ends
+        dispatch(setLoginTries(tr));
+        dispatch(setConnectionStatus(validateAccessResult.connectionResult.result));
         dispatch(setProcessing(false));
-        });      
-      }catch{
-        (console.log(Error));
-      }
+        });                                          // Fake delay ends
     })
-  }    
-  
+  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -129,7 +122,7 @@ export function Login() {
           </Grid>   
           <Grid>
             <Grid>              
-              {"Access granted. You are now logged in"}
+              {userConnectionStatus /*login proceess status infiormation*/ }
             </Grid>
           </Grid>
         <form className={classes.form} noValidate>

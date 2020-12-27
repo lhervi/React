@@ -2,7 +2,7 @@ import React from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import { setEmail, setPassword, setProcessing, selectPassword, selectEmail, selectProcessing} from './loginSlice';
 import {setLoginTries, /*ResetLoginTries,*/ setConnectionStatus, setUserLogged, setUserInfo,
-  /*selectLoginTries,*/ selectConnectionStatus, /*selectUserLogged, selectUserInfo*/} from './statusSlice'
+  selectLoginTries, selectConnectionStatus, /*selectUserLogged, selectUserInfo*/} from './statusSlice'
 
 import ValidateAccess from './validateAccess';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -30,7 +30,7 @@ export function Login() {
   const userPass = useSelector(selectPassword);
   const userProcessing = useSelector(selectProcessing); 
   const userConnectionStatus = useSelector(selectConnectionStatus); 
-  //const userTries = useSelector(selectLoginTries);   
+  const userTries = useSelector(selectLoginTries);   
  
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -84,7 +84,7 @@ export function Login() {
   function Validate(e){
     e.preventDefault();
     dispatch(setProcessing(true));                   //  Indicates that the processing access has begun        
-    const tr={tryResult:'', time:(()=>new Date())()}
+    const tr={tryResult:'', time:(()=>new Date())().toJSON()}
     const userInfo = {id:'', middle:'', lastname:'' ,name:'', username:'', 
     email: userEmail, password: userPass};       
     ValidateAccess(userEmail, userPass).then(function(validateAccessResult){        
@@ -105,6 +105,7 @@ export function Login() {
         dispatch(setProcessing(false));
         });                                          // Fake delay ends
     })
+    console.log(`userTries: ${JSON.stringify(userTries)}`)
   }
 
   return (

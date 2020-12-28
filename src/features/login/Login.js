@@ -155,7 +155,7 @@ export function Login() {
             name="email"
             autoComplete="email"
             autoFocus       
-            onLoad={e => dispatch(setEmail(e.target.value))}     
+            onChange={e => dispatch(setEmail(e.target.value))}     
           />
           <TextField
             variant="outlined"

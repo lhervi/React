@@ -4,7 +4,7 @@ import { createSlice } from '@reduxjs/toolkit';
 export const statusSlice = createSlice({
   name: 'status',
   initialState: { 
-    loginTries: [{tryResult:'', time:''}],  //TryResult: HTTP request status Eg. 200 (means it was ok). time: the timestamp when it occurred
+    loginTries: [{tryResult:'', time:'', email:''}],  //TryResult: HTTP request status Eg. 200 (means it was ok). time: the timestamp when it occurred
     connectionStatus: '',                   //Information (text) about the connection result and the timestamp when it occurred
     userLogged: false,                      // true is the connection was stablished / false any other case
     userInfo: {

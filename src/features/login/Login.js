@@ -22,6 +22,10 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import md5 from 'md5';
 import Container from '@material-ui/core/Container';
+import Paper from '@material-ui/core/Paper';
+import '../images/Bardasz_Grey2.png'
+
+ 
  
 
 export function Login() {
@@ -30,7 +34,7 @@ export function Login() {
   const userPass = useSelector(selectPassword);
   const userProcessing = useSelector(selectProcessing); 
   const userConnectionStatus = useSelector(selectConnectionStatus); 
-  const userTries = useSelector(selectLoginTries);   
+  const userTries = useSelector(selectLoginTries); 
  
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -84,7 +88,7 @@ export function Login() {
   function Validate(e){
     e.preventDefault();
     dispatch(setProcessing(true));                   //  Indicates that the processing access has begun        
-    const tr={tryResult:'', time:(()=>new Date())().toJSON()}
+    const tr={tryResult:'', time:(()=>new Date())().toJSON(), email: userEmail}
     const userInfo = {id:'', middle:'', lastname:'' ,name:'', username:'', 
     email: userEmail, password: userPass};       
     ValidateAccess(userEmail, userPass).then(function(validateAccessResult){        
@@ -103,21 +107,34 @@ export function Login() {
         dispatch(setLoginTries(tr));
         dispatch(setConnectionStatus(validateAccessResult.connectionResult.result));
         dispatch(setProcessing(false));
-        });                                          // Fake delay ends
-    })
-    console.log(`userTries: ${JSON.stringify(userTries)}`)
+        console.log(`userTries: ${JSON.stringify(userTries)}`)
+        });                                        // Fake delay ends
+    })    
   }
 
   return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
+    
+     <Container component="main" maxWidth="xs">
+      <CssBaseline />    
+      
       <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Sign in
-        </Typography> 
+        <Grid container maxWidth="xs" direction='row' justify='space-between' alignItems='center'>
+          <Grid item>            
+            <img src ='Bardasz_Grey2.png'  alt="Logo Bardasz" with='150' height='150'></img>
+          </Grid>
+          <Grid item alignItems='flex-start'>
+            <Typography component="h1" variant="h5">
+            Sign in
+            </Typography> 
+          </Grid>
+          <Grid item alignItems='flex-start'>
+            <Avatar className={classes.avatar}>
+            <LockOutlinedIcon />
+            </Avatar>
+          </Grid>
+          
+        </Grid>
+       
           <Grid>
             -
           </Grid>   
@@ -136,8 +153,8 @@ export function Login() {
             label="Email Address"
             name="email"
             autoComplete="email"
-            autoFocus            
-            onChange={e => dispatch(setEmail(e.target.value))}
+            autoFocus       
+            onLoad={e => dispatch(setEmail(e.target.value))}     
           />
           <TextField
             variant="outlined"

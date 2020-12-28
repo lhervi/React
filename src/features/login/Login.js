@@ -23,7 +23,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import md5 from 'md5';
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
-import '../images/Bardasz_Grey2.png'
+import BardaszLogoDG from '../images/BardaszLogoDarkGray';
 
  
  
@@ -120,16 +120,16 @@ export function Login() {
       <div className={classes.paper}>
         <Grid container maxWidth="xs" direction='row' justify='space-between' alignItems='center'>
           <Grid item>            
-            <img src ='https://raw.githubusercontent.com/lhervi/React/main/Bardasz_Drak_Grey1.png'  alt="Logo Bardasz" with='150' height='150'></img>
+          <BardaszLogoDG w='120' h='120'/>
           </Grid>
           <Grid item alignItems='flex-start'>
            
           </Grid>
-          <Grid item alignItems='flex-start' justify='center'>
+          <Grid item alignItems='flex-start' justify='center' direction='column'>
             <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />            
+              <LockOutlinedIcon />            
             </Avatar>
-            <Typography component="h1" variant="h5" color='textSecondary'>
+            <Typography component="h6" variant="h6" color='textSecondary' justify='center' direction='column'>
             Sign in
             </Typography> 
           </Grid>
@@ -137,7 +137,7 @@ export function Login() {
         </Grid>
        
           <Grid>
-            
+          
           </Grid>   
           <Grid>
             <Grid>              

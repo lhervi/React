@@ -120,23 +120,24 @@ export function Login() {
       <div className={classes.paper}>
         <Grid container maxWidth="xs" direction='row' justify='space-between' alignItems='center'>
           <Grid item>            
-            <img src ='Bardasz_Grey2.png'  alt="Logo Bardasz" with='150' height='150'></img>
+            <img src ='https://raw.githubusercontent.com/lhervi/React/main/Bardasz_Drak_Grey1.png'  alt="Logo Bardasz" with='150' height='150'></img>
           </Grid>
           <Grid item alignItems='flex-start'>
-            <Typography component="h1" variant="h5">
+           
+          </Grid>
+          <Grid item alignItems='flex-start' justify='center'>
+            <Avatar className={classes.avatar}>
+            <LockOutlinedIcon />            
+            </Avatar>
+            <Typography component="h1" variant="h5" color='textSecondary'>
             Sign in
             </Typography> 
-          </Grid>
-          <Grid item alignItems='flex-start'>
-            <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
-            </Avatar>
           </Grid>
           
         </Grid>
        
           <Grid>
-            -
+            
           </Grid>   
           <Grid>
             <Grid>              

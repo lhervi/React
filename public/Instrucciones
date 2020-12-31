@@ -1,0 +1,87 @@
+
+Instrucciones para crear la Fake API
+
+1. - Crear una carpeta donde decida instalar la BD
+2.- Desde la terminal, desde la ubicación de l
+a carpeta, crear una nueva aplicación de Node.js
+
+Ejemplo: Si la BD está en esta ruta
+
+c:/miBd
+
+Entrar a la ruta y ejecutar el comando: npm init -y
+Luego para crear la Fake API, ejecutar el comando: npm i json-server
+
+3. Una vez instalado, habrimos el editor de código dentro de la carpeta
+
+4. Modificamos el package.json 
+4.1 agregamos la siguiente instrucción: 
+
+"scripts": {
+    "start": "json-server --watch db.json --port 3001"
+
+El archivo resultante debe quedar así:
+
+{
+  "name": "app-login",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "json-server --watch db.json --port 3001"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "json-server": "^0.16.3"
+  }
+}
+
+5. Crea un nuevo archivo en la carpeta y llámalo db.json.
+5.1 Copia y pega en ese archivo los siguientes registros:
+
+{
+    "users":[
+        {
+            "id": 1,
+            "middle": "García",
+            "lastname": "Ramirez",
+            "name": "Guillermo",
+            "username": "cgarcia",
+            "email": "cgarcia@test.com",
+            "password": "12345"
+        },
+        {
+            "id": 2,
+            "middle": "Ferandez",
+            "lastname": "Flores",
+            "name": "Roberto",
+            "username": "rflores",
+            "email": "rflores@test.com",
+            "password": "54321"
+        },
+        {
+            "id": 3,
+            "middle": "Serrano",
+            "lastname": "Carrera",
+            "name": "Mirian",
+            "username": "mcarrera",
+            "email": "mcarrera@test.com",
+            "password": "123456"
+        }
+    ]          
+
+}
+
+6. Ubícate en la carpeta donde estpa bd.json y ejecutal el siguiente comando:
+
+npm start
+
+Importante: No se debe cerrar la cónsola porque sólo funciona mientras la misma está abierta
+
+
+
+
+
+

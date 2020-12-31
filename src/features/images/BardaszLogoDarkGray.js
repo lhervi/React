@@ -1,6 +1,7 @@
 
 import React from 'react';
-import Bardasz1 from './Bardasz_Grey2.png'
+//import Bardasz1 from './Bardasz_Grey2.png'
+import Bardasz1 from './Bardasz2/bardasz.svg'
 
 function BardaszLogoDG(props){
     

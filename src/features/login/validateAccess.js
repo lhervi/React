@@ -5,18 +5,9 @@
 
 
 import axios from 'axios';
-//import Cookies from 'universal-cookies';
 
-async function ValidateAccess(email, password){
-  /*
-  const loginStatus = {
-    "loginOk": '',
-    "welcome": "Welcome",
-    "loginFailed": 'The combination of username and password you have entered is incorrect',
-    "connectionProblem": "WEB Connection failed... ",
-    "loginInProcess": "Please wait, login in process",
-  } 
-  */     
+
+async function ValidateAccess(email, password){  
    
   var statusLogin = false;
 

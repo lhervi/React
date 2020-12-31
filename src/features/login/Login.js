@@ -25,6 +25,7 @@ import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import BardaszLogoDG from '../images/BardaszLogoDarkGray';
 
+
  
  
 
@@ -120,7 +121,7 @@ export function Login() {
       <div className={classes.paper}>
         <Grid container maxWidth="xs" direction='row' justify='space-between' alignItems='center'>
           <Grid item>            
-          <BardaszLogoDG w='120' h='120'/>
+          <BardaszLogoDG w='220' h='220'/>
           </Grid>
           <Grid item alignItems='flex-start'>
            
@@ -193,15 +194,12 @@ export function Login() {
                 Forgot password?
               </Link>
             </Grid>
-            <Grid item>
-              <Link href="#" variant="body2">
-                {"Don't have an account? Sign Up"}
-              </Link>
+            <Grid item>             
             </Grid>
           </Grid>
         </form>
       </div>
-      <Box mt={8}>
+      <Box mt={4}>
         <Footer />
       </Box>
     </Container>

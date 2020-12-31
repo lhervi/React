@@ -9,7 +9,7 @@ Ejemplo: Si la BD está en esta ruta
 
 c:/miBd
 
-Entrar a la ruta y ejecutar el comando: npm init -y
+Entrar a la ruta c:/miBd y ejecutar desde la cónsola el comando: npm init -y
 Luego para crear la Fake API, ejecutar el comando: npm i json-server
 
 3. Una vez instalado, habrimos el editor de código dentro de la carpeta

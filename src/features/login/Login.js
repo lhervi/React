@@ -168,7 +168,7 @@ export function Login() {
             type="password"            
             id="password"
             autoComplete="current-password"            
-            onChange={e => dispatch(setPassword(md5(e.target.value)))}
+            onChange={e => dispatch(setPassword(e.target.value))}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}           

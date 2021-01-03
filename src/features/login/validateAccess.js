@@ -54,8 +54,9 @@ async function ValidateAccess(email, password){
       status({status: statusLogin, userData, connectionResult});
     })      
 
-}catch{
-  console.log(Error)
+}catch(e){
+  connectionResult.result= `Something wrong happened. There is not connection with the Login DB. Error type: ${e}` ;
+  console.log(e)
 }
 
 }

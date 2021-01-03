@@ -1,0 +1,31 @@
+{
+    "users":[
+        {
+            "id": 1,
+            "middle": "García",
+            "lastname": "Ramirez",
+            "name": "Guillermo",
+            "username": "cgarcia",
+            "email": "cgarcia@test.com",
+            "password": "12345"
+        },
+        {
+            "id": 2,
+            "middle": "Ferandez",
+            "lastname": "Flores",
+            "name": "Roberto",
+            "username": "rflores",
+            "email": "rflores@test.com",
+            "password": "54321"
+        },
+        {
+            "id": 3,
+            "middle": "Serrano",
+            "lastname": "Carrera",
+            "name": "Mirian",
+            "username": "mcarrera",
+            "email": "mcarrera@test.com",
+            "password": "123456"
+        }
+    ]       
+}

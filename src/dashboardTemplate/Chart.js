@@ -1,7 +1,15 @@
 import * as React from 'react';
 import { useTheme } from '@material-ui/core/styles';
-import { LineChart, Line, XAxis, YAxis, Label, ResponsiveContainer } from 'recharts';
+import * as Recharts from 'recharts/umd/Recharts';
 import Title from './Title';
+
+const Area = Recharts.Area;
+const ResponsiveContainer = Recharts.ResponsiveContainer; 
+const LineChart = Recharts.LineChart;
+const XAxis = Recharts.XAxis;
+const YAxis = Recharts.YAxis;
+const Label = Recharts.Label;
+const Line= Recharts.Line;
 
 // Generate Sales Data
 function createData(time, amount) {

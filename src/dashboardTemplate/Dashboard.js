@@ -18,13 +18,8 @@ import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-<<<<<<< HEAD
 
 import Chart from './Chart';
-=======
-import { mainListItems, secondaryListItems } from './listItems';
-//import Chart from './Chart';
->>>>>>> dbc246bdeb3e9fe68b9dd7584b3087fbfa31d3a9
 import Deposits from './Deposits';
 import Orders from './Orders';
 
@@ -193,8 +188,8 @@ export default function Dashboard() {
             {/* Chart */}
             <Grid item xs={12} md={8} lg={9}>
               <Paper className={fixedHeightPaper}>
-                {/* <Chart /> */}
-                <p>Aqui estaban los charts</p>
+                 <Chart /> 
+                
               </Paper>
             </Grid>
             {/* Recent Deposits */}

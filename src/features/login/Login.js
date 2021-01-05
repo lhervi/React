@@ -29,7 +29,7 @@ import BardaszLogoDG from '../images/BardaszLogoDarkGray';
  
  
 
-export function Login() {
+function Login() {
   const dispatch = useDispatch();
   const userEmail = useSelector(selectEmail);
   const userPass = useSelector(selectPassword);
@@ -206,3 +206,4 @@ export function Login() {
   );
 }
 
+export default Login;

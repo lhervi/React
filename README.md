@@ -1,3 +1,24 @@
+Login example with React Tool Kit and Material UI
+
+Please, before start the app, you shoul install the db following these instructions
+
+Instruction to install the db 
+=============================
+
+1. Clone de bd from github: git clone https://github.com/lhervi/bd-fake-api.git
+
+2. Go to the new dir: cd bd-fake-api
+
+3.1 npm init -y  
+
+3.2 npm i json-server
+
+3.3 npm start
+
+Note: Please, keep the console open while you are using the db
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
 
 ## Available Scripts

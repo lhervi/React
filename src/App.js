@@ -1,16 +1,12 @@
 import React from 'react';
 
-//import {Login} from './features/login/Login';
+import Menu from './dashboardTemplate/Menu';
 
-import Dashboard from './dashboardTemplate/Dashboard';
-
-
-
+  
 function App() {
   return (
-    <div>    
-     
-     <Dashboard />
+    <div>     
+     <Menu />
     </div>
   );
 }

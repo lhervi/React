@@ -3,7 +3,7 @@ import { useTheme } from '@material-ui/core/styles';
 import * as Recharts from 'recharts/umd/Recharts';
 import Title from './Title';
 
-const Area = Recharts.Area;
+//const Area = Recharts.Area;
 const ResponsiveContainer = Recharts.ResponsiveContainer; 
 const LineChart = Recharts.LineChart;
 const XAxis = Recharts.XAxis;

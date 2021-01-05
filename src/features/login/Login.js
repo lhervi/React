@@ -23,10 +23,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import Container from '@material-ui/core/Container';
 
-import BardaszLogoDG from '../images/BardaszLogoDarkGray';
-
-
- 
+import BardaszLogoDG from '../images/BardaszLogoDarkGray'; 
  
 
 function Login() {

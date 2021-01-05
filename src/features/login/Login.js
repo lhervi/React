@@ -20,9 +20,9 @@ import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import md5 from 'md5';
+
 import Container from '@material-ui/core/Container';
-import Paper from '@material-ui/core/Paper';
+
 import BardaszLogoDG from '../images/BardaszLogoDarkGray';
 
 

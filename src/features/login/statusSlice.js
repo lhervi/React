@@ -15,6 +15,7 @@ export const statusSlice = createSlice({
       username:'', 
       email:'', 
       password:''},
+    jwt: {token: {}},
   },
   reducers: {
     setLoginTries: (state, action) => {      
@@ -32,12 +33,15 @@ export const statusSlice = createSlice({
     setUserInfo: (state, action) => {
       state.userInfo = action.payload;
     },
+    setJwt: (state, action) => {
+      state.Jwt = action.payload;
+    },
   },
 });
 
 const {actions, reducer} = statusSlice; 
 
-export const { setLoginTries, ResetLoginTries, setConnectionStatus, setUserLogged, setUserInfo } = actions;
+export const { setLoginTries, ResetLoginTries, setConnectionStatus, setUserLogged, setUserInfo, setJwt } = actions;
 
 //const {loginTries, connectionStatus, userLogged, userInfo} = state.status;
 
@@ -45,6 +49,7 @@ export const selectLoginTries = state => state.status.loginTries;
 export const selectConnectionStatus = state => state.status.connectionStatus;
 export const selectUserLogged = state => state.status.userLogged;
 export const selectUserInfo = state => state.status.userInfo;
+export const selectJwt = state => state.status.jwt;
 
 export default reducer;
 

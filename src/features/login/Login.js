@@ -1,12 +1,11 @@
 import React from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import { setEmail, setPassword, setProcessing, selectPassword, selectEmail, selectProcessing} from './loginSlice';
-import {setLoginTries, /*ResetLoginTries,*/ setConnectionStatus, setUserLogged, setUserInfo,
-  selectLoginTries, selectConnectionStatus, /*selectUserLogged, selectUserInfo*/} from './statusSlice'
+import {setLoginTries, setConnectionStatus, setUserLogged, setUserInfo, setJwt,
+        selectLoginTries, selectConnectionStatus, } from './statusSlice'
 
 import ValidateAccess from './validateAccess';
 import CircularProgress from '@material-ui/core/CircularProgress';
-
 
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -32,7 +31,7 @@ function Login() {
   const userPass = useSelector(selectPassword);
   const userProcessing = useSelector(selectProcessing); 
   const userConnectionStatus = useSelector(selectConnectionStatus); 
-  const userTries = useSelector(selectLoginTries); 
+  const userTries = useSelector(selectLoginTries);   
  
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -91,6 +90,7 @@ function Login() {
     email: userEmail, password: userPass};       
     ValidateAccess(userEmail, userPass).then(function(validateAccessResult){        
       tr.tryResult = validateAccessResult.connectionResult.connectionStatusNumber; //HTML Code number Eg. 200 / 404
+      const jwt = validateAccessResult.connectionResult.jwt 
       delay(5).then(function(result){               // Fake delay
         if (validateAccessResult.status) {
           dispatch(setUserLogged(true))          
@@ -100,7 +100,8 @@ function Login() {
           userInfo.middle = middle;
           userInfo.name = name;        
           userInfo.username = username;                 
-          dispatch(setUserInfo(userInfo));          
+          dispatch(setUserInfo(userInfo)); 
+          dispatch(setJwt(jwt));
         };  // If ends
         dispatch(setLoginTries(tr));
         dispatch(setConnectionStatus(validateAccessResult.connectionResult.result));

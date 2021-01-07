@@ -14,7 +14,7 @@ async function ValidateAccess(email, password){
   const urlApi = "http://localhost:3001/users";
   const userInfo = {email: email, password: password};  
   const userData = {id:'', middle:'', lastname:'', name:'', username:'', email:'', password:''};
-  const connectionResult = {result: '', connectionStatusNumber: 0};   // result: text describing the status  
+  const connectionResult = {result: '', connectionStatusNumber: 0, jwt:{}};   // result: text describing the status  
                                                                       // connectionStatus:it's a HTML numeric code
 
   
@@ -30,6 +30,8 @@ async function ValidateAccess(email, password){
       
       const {id, middle, lastname ,name, username, email, password} = resp.data[0]; 
       connectionResult.result= 'Access granted. You are now logged in';
+      connectionResult.jwt = (email==='cgarcia@test.com') ? {token: ''} : {token: "header.payload.sign"}
+
       console.log(connectionResult.result);   
       
       userData.id= id;

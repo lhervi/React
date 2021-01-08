@@ -2,7 +2,8 @@ import React from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import { setEmail, setPassword, setProcessing, selectPassword, selectEmail, selectProcessing} from './loginSlice';
 import {setLoginTries, setConnectionStatus, setUserLogged, setUserInfo, setJwt,
-        selectLoginTries, selectConnectionStatus, } from './statusSlice'
+        selectLoginTries, selectConnectionStatus } from './statusSlice';
+
 
 import ValidateAccess from './validateAccess';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -23,16 +24,21 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
 import BardaszLogoDG from '../images/BardaszLogoDarkGray'; 
- 
+
+
 
 function Login() {
   const dispatch = useDispatch();
+
+  
+
   const userEmail = useSelector(selectEmail);
   const userPass = useSelector(selectPassword);
   const userProcessing = useSelector(selectProcessing); 
   const userConnectionStatus = useSelector(selectConnectionStatus); 
   const userTries = useSelector(selectLoginTries);   
- 
+
+   
   const useStyles = makeStyles((theme) => ({
     root: {
       display: 'flex',
@@ -86,21 +92,22 @@ function Login() {
     e.preventDefault();
     dispatch(setProcessing(true));                   //  Indicates that the processing access has begun        
     const tr={tryResult:'', time:(()=>new Date())().toJSON(), email: userEmail}
-    const userInfo = {id:'', middle:'', lastname:'' ,name:'', username:'', 
-    email: userEmail, password: userPass};       
+    const userData = {id:'', middle:'', lastname:'' ,name:'', username:'', 
+    email: userEmail, password: userPass, role:''};       
     ValidateAccess(userEmail, userPass).then(function(validateAccessResult){        
       tr.tryResult = validateAccessResult.connectionResult.connectionStatusNumber; //HTML Code number Eg. 200 / 404
       const jwt = validateAccessResult.connectionResult.jwt 
       delay(5).then(function(result){               // Fake delay
         if (validateAccessResult.status) {
           dispatch(setUserLogged(true))          
-          const {id, middle, lastname ,name, username} = validateAccessResult.userData;
-          userInfo.Id = id;
-          userInfo.lastname = lastname;
-          userInfo.middle = middle;
-          userInfo.name = name;        
-          userInfo.username = username;                 
-          dispatch(setUserInfo(userInfo)); 
+          const {id, middle, lastname ,name, username, role} = validateAccessResult.userData;
+          userData.Id = id;
+          userData.lastname = lastname;
+          userData.middle = middle;
+          userData.name = name;        
+          userData.username = username;     
+          userData.role = role; 
+          dispatch(setUserInfo(userData)); 
           dispatch(setJwt(jwt));
         };  // If ends
         dispatch(setLoginTries(tr));
@@ -109,7 +116,7 @@ function Login() {
         console.log(`userTries: ${JSON.stringify(userTries)}`)
         });                                        // Fake delay ends
     })    
-  }
+  }  
 
   return (
     

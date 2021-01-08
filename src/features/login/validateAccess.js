@@ -13,7 +13,7 @@ async function ValidateAccess(email, password){
 
   const urlApi = "http://localhost:3001/users";
   const userInfo = {email: email, password: password};  
-  const userData = {id:'', middle:'', lastname:'', name:'', username:'', email:'', password:''};
+  const userData = {id:'', middle:'', lastname:'', name:'', username:'', email:'', password:'', role:''};
   const connectionResult = {result: '', connectionStatusNumber: 0, jwt:{}};   // result: text describing the status  
                                                                       // connectionStatus:it's a HTML numeric code
 
@@ -28,7 +28,7 @@ async function ValidateAccess(email, password){
       
       statusLogin = true;                                // Login process ok   
       
-      const {id, middle, lastname ,name, username, email, password} = resp.data[0]; 
+      const {id, middle, lastname ,name, username, email, password, role} = resp.data[0]; 
       connectionResult.result= 'Access granted. You are now logged in';
       connectionResult.jwt = (email==='cgarcia@test.com') ? {token: ''} : {token: "header.payload.sign"}
 
@@ -41,6 +41,7 @@ async function ValidateAccess(email, password){
       userData.username= username;
       userData.email= email;
       userData.password= password;      
+      userData.role= role;
           
     } else if (resp.request.status===200 && resp.data.length===0) {
       
@@ -67,7 +68,8 @@ export default ValidateAccess
 
 /* 
   Usuarios de la BD API Fake
-  "email": "cgarcia@test.com","password": "12345"
-  "email": "rflores@test.com", "password": "54321"
-  "email": "mcarrera@test.com","password": "123456"
+  "email": "cgarcia@test.com","password": "123c"
+  "email": "rflores@test.com", "password": "123r"
+  "email": "mcarrera@test.com","password": "123m"
+  "email": "palmac@test.com", "password": "123p"
 */  

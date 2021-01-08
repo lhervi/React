@@ -14,7 +14,8 @@ export const statusSlice = createSlice({
       name:'', 
       username:'', 
       email:'', 
-      password:''},
+      password:'',
+      role:''},
     jwt: {token: {}},
   },
   reducers: {
@@ -26,7 +27,7 @@ export const statusSlice = createSlice({
     },
     setConnectionStatus: (state, action) => {      
       state.connectionStatus = action.payload;
-    },    
+    },
     setUserLogged: (state, action) => {
       state.userLogged = action.payload;
     },

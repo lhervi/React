@@ -15,7 +15,7 @@ async function ValidateAccess(email, password){
   const userInfo = {email: email, password: password};  
   const userData = {id:'', middle:'', lastname:'', name:'', username:'', email:'', password:'', role:''};
   const connectionResult = {result: '', connectionStatusNumber: 0, jwt:{}};   // result: text describing the status  
-                                                                      // connectionStatus:it's a HTML numeric code
+                                                                              // connectionStatus:it's a HTML numeric code
 
   
 
@@ -26,11 +26,11 @@ async function ValidateAccess(email, password){
           
     if (resp.request.status===200 && resp.data.length>0){
       
-      statusLogin = true;                                // Login process ok   
+      statusLogin = true;                                                      // Login process ok   
       
       const {id, middle, lastname ,name, username, email, password, role} = resp.data[0]; 
       connectionResult.result= 'Access granted. You are now logged in';
-      connectionResult.jwt = (email==='cgarcia@test.com') ? {token: ''} : {token: "header.payload.sign"}
+      connectionResult.jwt = {token: "header.payload.sign"}
 
       console.log(connectionResult.result);   
       
@@ -42,6 +42,14 @@ async function ValidateAccess(email, password){
       userData.email= email;
       userData.password= password;      
       userData.role= role;
+
+      localStorage.setItem("token", connectionResult.jwt.token);
+      localStorage.setItem("role", role);
+      localStorage.setItem("name", name);      
+      localStorage.setItem("lastname", lastname);
+      localStorage.setItem("email", email);
+      
+      
           
     } else if (resp.request.status===200 && resp.data.length===0) {
       

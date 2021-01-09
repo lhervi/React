@@ -10,18 +10,66 @@ import PeopleIcon from '@material-ui/icons/People';
 import BarChartIcon from '@material-ui/icons/BarChart';
 import LayersIcon from '@material-ui/icons/Layers';
 
+
 const Navbar = (props)=>{   
 
-  const activeLinks = props.activeLinks;  
+  const guess= ['/login', '/dashboard']
 
+  const allLinks = {    
+   
+    '/dashboard': {name: 'Dashboard', iconObj: <DashboardIcon/>},
+    '/orders': {name: 'Orders', iconObj: <ShoppingCartIcon/>}, 
+    '/customers': {name: 'Customers', iconObj: <PeopleIcon/>},
+    '/reports': {name: 'Reports', iconObj: <BarChartIcon/>},
+    '/integration': {name: 'Integration', iconObj: <LayersIcon/>},
+  };
+
+  const activeLinks = (props.activeLinks) ? props.activeLinks : guess;         //array links to be created 
+
+  
+
+  const linksToInterface = activeLinks.map(li => 
+                        
+     allLinks[li] &&
+     <ListItem button>
+        <ListItemIcon>{allLinks[li].iconObj}</ListItemIcon>
+        <Link to={li} style={{"text-decoration":''}}>
+          <ListItemText primary={allLinks[li].name}/> 
+        </Link>       
+      </ListItem>    
+
+  );  
+  
   return(
-
   <nav>
-    <ListItem button disable={!activeLinks.has('/dashboard')}>
+    
+    {linksToInterface}
+
+  </nav>
+  );
+}
+
+export default Navbar;
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+
+<ListItem button disable={!activeLinks.has('/dashboard')}>
       <ListItemIcon>
-        <DashboardIcon />
+        <{allLinks[li]icon} />
       </ListItemIcon>
-      <Link to={activeLinks.has('/dashboard') ? "/dashboard":'#'}   underline='over'>
+      <Link to={activeLinks.has('/dashboard') ? "/dashboard":'#'}   underline='over' style={"text-decoration:''"}>
         <ListItemText primary="Dashboard"/> 
       </Link>       
     </ListItem>    
@@ -57,12 +105,9 @@ const Navbar = (props)=>{
       <ListItemIcon>
         <LayersIcon />
       </ListItemIcon>      
-      <Link to={activeLinks.has('/integration') ? "/integration" : '#'} underline='over'>
+      <Link to={activeLinks.has('/integration') ? "/integration" : '#'} underline='over' style={"text-decoration:''"}>
         <ListItemText primary="Integration"/>
       </Link>
     </ListItem> 
-  </nav>
-  );
-}
 
-export default Navbar;
+*/

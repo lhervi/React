@@ -25,6 +25,7 @@ const Navbar = (props)=>{
   };
 
   const activeLinks = (props.activeLinks) ? props.activeLinks : guess;         //array links to be created 
+  //const activeLinks = props.activeLinks;
 
   
 

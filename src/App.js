@@ -1,13 +1,19 @@
 import React from 'react';
-//import {useSelector} from 'react-redux';
-//import {selectUserLogged} from './features/login/statusSlice';
 import Login from './features/login/Login';
 import Menu from './dashboardTemplate/MenuJwt';
+
   
 function App() {
-  const userLogged = localStorage.getItem('token')!=='' ? true: false
-  //const userLogged = useSelector(selectUserLogged); 
-    return userLogged ? <Menu /> : <Login/> 
+    
+    const userLogged = localStorage.getItem('token') ? true: false
+
+    console.log(userLogged)   
+    
+    if (!userLogged) {
+        return <Login/>
+    }else{
+       return  <Menu />
+    } 
 }
 
 export default App;

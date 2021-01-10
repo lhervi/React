@@ -10,18 +10,19 @@ import Customers from './Customers';
 import Reports from './Reports';
 import Integration from './Integration';
 import PageNotFound from './PageNotFound';
-import App from '../App';
+
 
 export default function Menu() {
 
 const TOKEN_KEY = localStorage.getItem('token');
 const role = localStorage.getItem('role');
 
-const isLogin = ()=> (TOKEN_KEY!=='{}') ? true : false
+const isLogin = ()=> (TOKEN_KEY) ? true : false
 
-const allLinks = ['/login', '/dashboard', '/orders', '/customers', '/reports', '/integration'];
+const allLinks = ['/', '/login', '/dashboard', '/orders', '/customers', '/reports', '/integration', '/pagenotfound'];
 const allLinksSet = new Set (allLinks);
 
+const home = Dashboard;
 
 const roleSet = {
 
@@ -35,75 +36,57 @@ const roleSet = {
 
 const activeLinks = roleSet[role];
 
-const PublicRoute = ({component: Component, restricted, path, ...rest})=> {         
-   
-    if (!isLogin() && restricted) {
-        
-        return <Redirect to="/login" />
-
-    } else if (!isLogin() && !restricted) {               
-        
-        return <Component {...rest} />
+const PublicRoute = ({component: Component, restricted, path, ...rest})=> {     
     
-    } else if (isLogin() && path==='/') {
-
-        return <Redirect to="/dashboard" />
-    
-    } else if (isLogin() && path!=='/login' && allLinksSet.has(path)) {
-
-        return <Component {...rest} />
-
-    } else if (isLogin() && !allLinksSet.has(path) )  {
-
-        return <Redirect to="/PageNotFound" />
-
-    }else{
-
-        return <Redirect to="/PageNotFound" />
-
+    if (allLinksSet.has(path)) {
+        if (!isLogin() && restricted) {
+            return <Redirect to='/login' />     
+        }else if ((!isLogin() && !restricted) || (isLogin() && path!=='/login')) {         
+            return <Component {...rest} />    
+        }else if (isLogin() && path==='/login'){
+            return <Redirect to= '/' />            
+        }
+    }else {
+        return <Redirect to= '/pagenotfound' />
     }
-};
+}
 
 const PrivateRoute = ({component: Component, path, ...rest}) => {   
-    
-    if (!isLogin()) {
-        
-        return <Redirect to="/login" />
 
-    } else if (isLogin() && path==='/') {
-
-            return <Redirect to="/dashboard" />
-
-    } else if (isLogin() && path!=='/login' && allLinksSet.has(path) )  {
-
-        return <Component {...rest} />
-    
-    } else if (isLogin() && !allLinksSet.has(path) )  {
-
-        return <Redirect to="/PageNotFound" />
-
+    if (allLinksSet.has(path)) {
+        if (!isLogin()) {
+            return <Redirect to='/login' /> 
+        }else if (isLogin() && path!=='/login') {
+            return <Component {...rest} />
+        }else if (isLogin() && path==='/login'){
+            return <Redirect to= '/' />
+        }
     }else{
-
-        return <Redirect to="/PageNotFound" />
-
+    return <Redirect to= '/pagenotfound' />
     }
-};
+}    
 
-    return (    
-      <BrowserRouter>
+if (allLinksSet.has(window.location.pathname)) {
+    return (
+        <BrowserRouter>
             <Navbar activeLinks={activeLinks} />
-              <Switch>      
-                
-                <PublicRoute restricted = {false} exact path="/" component={App}></PublicRoute>
+            <Switch>                
+                <PublicRoute restricted = {true} exact path="/" component={home}></PublicRoute>
                 <PublicRoute restricted = {false} exact path="/login" component={Login}></PublicRoute>
-                <PublicRoute restricted = {true} exact path="/dashboard" component={Dashboard}></PublicRoute>                 
-                <PublicRoute restricted = {false} exact path="/PageNotFound" component={PageNotFound} ></PublicRoute>
+                <PublicRoute restricted = {false} exact path="/pagenotfound" component={PageNotFound}></PublicRoute>                 
+                <PublicRoute restricted = {true} exact path="/dashboard" component={Dashboard}></PublicRoute>
                 <PrivateRoute exact path="/orders" component={Orders}></PrivateRoute>
                 <PrivateRoute exact path="/customers" component={Customers}></PrivateRoute>
                 <PrivateRoute  exact path="/reports" component={Reports}></PrivateRoute>
-                <PrivateRoute exact path="/integration" component={Integration}></PrivateRoute> 
-                          
-              </Switch>        
-      </BrowserRouter>
-    );
-  }
+                <PrivateRoute exact path="/integration" component={Integration}></PrivateRoute>                
+            </Switch>        
+        </BrowserRouter>
+    )
+    }else{
+        return (
+          <BrowserRouter>
+            <PublicRoute restricted = {false} exact path="/pagenotfound" component={PageNotFound}/>         
+          </BrowserRouter>
+        )
+    }    
+}

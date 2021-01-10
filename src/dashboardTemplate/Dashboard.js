@@ -1,4 +1,6 @@
 import React from 'react';
+//import { useHistory } from "react-router-dom";
+
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -17,11 +19,13 @@ import Paper from '@material-ui/core/Paper';
 import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import NotificationsIcon from '@material-ui/icons/Notifications';
+import ExitToAppRoundedIcon from '@material-ui/icons/ExitToAppRounded';
 
 import Chart from './Chart';
 import Deposits from './Deposits';
 import Orders from './Orders';
+
+
 
 function Copyright() {
   return (
@@ -35,6 +39,8 @@ function Copyright() {
     </Typography>
   );
 }
+
+
 
 const drawerWidth = 240;
 
@@ -118,6 +124,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Dashboard() {
+  //const history = useHistory();
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
   const handleDrawerOpen = () => {
@@ -127,6 +134,14 @@ export default function Dashboard() {
     setOpen(false);
   };
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+
+  const goAway = ()=> {  
+    const confirm=window.confirm('Are you sure you want to quit?');   
+    if (confirm) {  
+      localStorage.clear();
+      window.location.href = '/'; 
+    }  
+  }
 
   return (
     <div className={classes.root}>
@@ -147,7 +162,10 @@ export default function Dashboard() {
           </Typography>
           <IconButton color="inherit">
             <Badge badgeContent={4} color="secondary">
-              <NotificationsIcon />
+
+            {/*Logout buttom  */}
+            <ExitToAppRoundedIcon onClick={goAway} />  
+
             </Badge>
           </IconButton>
         </Toolbar>
@@ -167,11 +185,7 @@ export default function Dashboard() {
         <Divider />      
 
         
-        {/*
-        <List>{mainListItems}</List>
-        <Divider />
-        <List>{secondaryListItems}</List>
-        */}
+        
           
          
       </Drawer>

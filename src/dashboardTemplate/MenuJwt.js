@@ -10,6 +10,7 @@ import Customers from './Customers';
 import Reports from './Reports';
 import Integration from './Integration';
 import PageNotFound from './PageNotFound';
+import Logout from './Logout';
 
 
 export default function Menu() {
@@ -19,18 +20,18 @@ const role = localStorage.getItem('role');
 
 const isLogin = ()=> (TOKEN_KEY) ? true : false
 
-const allLinks = ['/', '/login', '/dashboard', '/orders', '/customers', '/reports', '/integration', '/pagenotfound'];
+const allLinks = ['/', '/login', '/dashboard', '/orders', '/customers', '/reports', '/integration', '/logout','/pagenotfound'];
 const allLinksSet = new Set (allLinks);
 
 const home = Dashboard;
 
 const roleSet = {
 
-    guess: ['/login', '/dashboard'],
-    user1: ['/login', '/dashboard', '/orders'], 
-    user2: ['/login','/dashboard', '/orders', '/customers'], 
-    user3: ['/login','/dashboard', '/orders', '/customers', '/reports'], 
-    admin: ['/login', '/dashboard', '/orders', '/customers', '/reports', '/integration']
+    guess: ['/login', '/dashboard', '/logout'],
+    user1: ['/login', '/dashboard', '/orders', '/logout'], 
+    user2: ['/login','/dashboard', '/orders', '/customers', '/logout'], 
+    user3: ['/login','/dashboard', '/orders', '/customers', '/reports', '/logout'], 
+    admin: ['/login', '/dashboard', '/orders', '/customers', '/reports', '/integration', '/logout']
 
 };
 
@@ -78,7 +79,8 @@ if (allLinksSet.has(window.location.pathname)) {
                 <PrivateRoute exact path="/orders" component={Orders}></PrivateRoute>
                 <PrivateRoute exact path="/customers" component={Customers}></PrivateRoute>
                 <PrivateRoute  exact path="/reports" component={Reports}></PrivateRoute>
-                <PrivateRoute exact path="/integration" component={Integration}></PrivateRoute>                
+                <PrivateRoute exact path="/integration" component={Integration}></PrivateRoute>    
+                <PrivateRoute exact path="/logout" component={Logout}></PrivateRoute>                            
             </Switch>        
         </BrowserRouter>
     )

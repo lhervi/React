@@ -1,5 +1,4 @@
 import React from 'react';
-//import { useHistory } from "react-router-dom";
 
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
@@ -12,7 +11,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
-import Badge from '@material-ui/core/Badge';
+
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -39,8 +38,6 @@ function Copyright() {
     </Typography>
   );
 }
-
-
 
 const drawerWidth = 240;
 
@@ -161,12 +158,10 @@ export default function Dashboard() {
             Dashboard
           </Typography>
           <IconButton color="inherit">
-            <Badge badgeContent={4} color="secondary">
 
             {/*Logout buttom  */}
-            <ExitToAppRoundedIcon onClick={goAway} />  
+            <ExitToAppRoundedIcon onClick={goAway} />
 
-            </Badge>
           </IconButton>
         </Toolbar>
       </AppBar>      

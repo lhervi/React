@@ -9,6 +9,7 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import PeopleIcon from '@material-ui/icons/People';
 import BarChartIcon from '@material-ui/icons/BarChart';
 import LayersIcon from '@material-ui/icons/Layers';
+import ExitToAppRoundedIcon from '@material-ui/icons/ExitToAppRounded';
 
 
 const Navbar = (props)=>{   
@@ -22,13 +23,11 @@ const Navbar = (props)=>{
     '/customers': {name: 'Customers', iconObj: <PeopleIcon/>},
     '/reports': {name: 'Reports', iconObj: <BarChartIcon/>},
     '/integration': {name: 'Integration', iconObj: <LayersIcon/>},
+    '/logout' : {name: 'Logout', iconObj: <ExitToAppRoundedIcon />},
   };
 
   const activeLinks = (props.activeLinks) ? props.activeLinks : guess;         //array links to be created 
-  //const activeLinks = props.activeLinks;
-
   
-
   const linksToInterface = activeLinks.map(li => 
                         
      allLinks[li] &&
@@ -52,63 +51,3 @@ const Navbar = (props)=>{
 
 export default Navbar;
 
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-
-<ListItem button disable={!activeLinks.has('/dashboard')}>
-      <ListItemIcon>
-        <{allLinks[li]icon} />
-      </ListItemIcon>
-      <Link to={activeLinks.has('/dashboard') ? "/dashboard":'#'}   underline='over' style={"text-decoration:''"}>
-        <ListItemText primary="Dashboard"/> 
-      </Link>       
-    </ListItem>    
-
-    <ListItem button disable={!activeLinks.has('/orders')}>
-      <ListItemIcon>
-        <ShoppingCartIcon />
-      </ListItemIcon>
-        <Link to={activeLinks.has('/orders') ? "/orders" : '#'} underline='over'>
-          <ListItemText primary="Orders"/>
-        </Link>     
-    </ListItem>
-
-    <ListItem button disable={!activeLinks.has('/customers')}>
-      <ListItemIcon>
-        <PeopleIcon />
-      </ListItemIcon>    
-      <Link to={activeLinks.has('/customers') ? "/customers" : '#'} underline='over'>
-        <ListItemText primary="Customers"/>
-      </Link>
-    </ListItem>
-
-    <ListItem button disable={!activeLinks.has('/reports')}>
-      <ListItemIcon>
-        <BarChartIcon />
-      </ListItemIcon>     
-      <Link to={activeLinks.has('/reports') ? "/reports" : '#'} underline='over'>
-        <ListItemText primary="reports"/>
-      </Link>
-    </ListItem>    
-    
-    <ListItem button disable={!activeLinks.has('/integration')}>
-      <ListItemIcon>
-        <LayersIcon />
-      </ListItemIcon>      
-      <Link to={activeLinks.has('/integration') ? "/integration" : '#'} underline='over' style={"text-decoration:''"}>
-        <ListItemText primary="Integration"/>
-      </Link>
-    </ListItem> 
-
-*/

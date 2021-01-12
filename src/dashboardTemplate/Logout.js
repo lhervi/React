@@ -9,31 +9,34 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Divider from '@material-ui/core/Divider';
 import WarningRoundedIcon from '@material-ui/icons/WarningRounded';
 
-export default function Logout() {
-  const [open, setOpen] = React.useState(true);
+
+
+
+export default function Logout() {  
+
+  const [open, setOpen] = React.useState(true);  
 
   const goAway =()=>{
     localStorage.clear();
     handleClose();
     window.location.href = '/';       
-  };
-  
-  /* const handleClickOpen = () => {
-    setOpen(true);
-  }; */
+  }; 
 
   const handleClose = () => {  
     window.history.back();
     setOpen(false);
   };
 
+  
+
   return (
-    <div>      
+    <div>     
+    
       <Dialog
         open={open}
         onClose={handleClose}
         aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
+        aria-describedby="alert-dialog-description"               
       >     
       
         <WarningRoundedIcon fontSize='large' color='secondary'/>
@@ -55,6 +58,7 @@ export default function Logout() {
           </Button>
         </DialogActions>
       </Dialog>
+    
     </div>
   );
 }

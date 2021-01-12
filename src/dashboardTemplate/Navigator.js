@@ -10,7 +10,9 @@ import PeopleIcon from '@material-ui/icons/People';
 import BarChartIcon from '@material-ui/icons/BarChart';
 import LayersIcon from '@material-ui/icons/Layers';
 import ExitToAppRoundedIcon from '@material-ui/icons/ExitToAppRounded';
+import theme from '../style/materialUiTheme';
 
+const linkHoverColor = theme.palette.secondary.main;
 
 const Navbar = (props)=>{   
 
@@ -33,7 +35,7 @@ const Navbar = (props)=>{
      allLinks[li] &&
      <ListItem button>
         <ListItemIcon>{allLinks[li].iconObj}</ListItemIcon>
-        <Link to={li} style={{"text-decoration":''}}>
+        <Link to={li} style={{"text-decoration":'none', "color":'inherit', "hover":{linkHoverColor}}}>
           <ListItemText primary={allLinks[li].name}/> 
         </Link>       
       </ListItem>    

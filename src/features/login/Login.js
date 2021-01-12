@@ -29,8 +29,6 @@ import App from '../../App';
 
 
 function Login() {   
-   
-    
   
     const dispatch = useDispatch(); 
 
@@ -93,135 +91,138 @@ function Login() {
     function Validate(e){
       e.preventDefault();
 
-      
-      
-
       dispatch(setProcessing(true));                   //  Indicates that the processing access has begun        
       const tr={tryResult:'', time:(()=>new Date())().toJSON(), email: userEmail}
       const userData = {id:'', middle:'', lastname:'' ,name:'', username:'', 
       email: userEmail, password: userPass, role:''};       
-      ValidateAccess(userEmail, userPass).then(function(validateAccessResult){        
-        tr.tryResult = validateAccessResult.connectionResult.connectionStatusNumber; //HTML Code number Eg. 200 / 404
-        const jwt = validateAccessResult.connectionResult.jwt 
-        delay(5).then(function(result){               // Fake delay
-          if (validateAccessResult.status) {
-            dispatch(setUserLogged(true))          
-            const {id, middle, lastname ,name, username, role} = validateAccessResult.userData;
-            userData.Id = id;
-            userData.lastname = lastname;
-            userData.middle = middle;
-            userData.name = name;        
-            userData.username = username;     
-            userData.role = role; 
-            dispatch(setUserInfo(userData)); 
-            dispatch(setJwt(jwt));
-          };  // If ends
-          dispatch(setLoginTries(tr));
-          dispatch(setConnectionStatus(validateAccessResult.connectionResult.result));
-          dispatch(setProcessing(false));
-          console.log(`userTries: ${JSON.stringify(userTries)}`)
-          
-          
-          });                                        // Fake delay ends
-      })    
-    }  
+      
+      try{
+        ValidateAccess(userEmail, userPass).then(function(validateAccessResult){        
+          tr.tryResult = validateAccessResult.connectionResult.connectionStatusNumber; //HTML Code number Eg. 200 / 404
+          const jwt = validateAccessResult.connectionResult.jwt 
+          delay(5).then(function(result){               // Fake delay
+            if (validateAccessResult.status) {
+              dispatch(setUserLogged(true))          
+              const {id, middle, lastname ,name, username, role} = validateAccessResult.userData;
+              userData.Id = id;
+              userData.lastname = lastname;
+              userData.middle = middle;
+              userData.name = name;        
+              userData.username = username;     
+              userData.role = role; 
+              dispatch(setUserInfo(userData)); 
+              dispatch(setJwt(jwt));
+            };  // If ends
+            dispatch(setLoginTries(tr));
+            dispatch(setConnectionStatus(validateAccessResult.connectionResult.result));
+            dispatch(setProcessing(false));
+            console.log(`userTries: ${JSON.stringify(userTries)}`)
+            
+            
+          })
+        })
+      } catch(e) {
+        
+        alert(`There is a problem: ${e} `);
 
-     if (localStorage.getItem('token')) {
-      return <App />
-    }else{
-      
-    return (
-      
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />    
-        
-        <div className={classes.paper}>
-          <Grid container maxWidth="xs" direction='row' justify='space-between' alignItems='center'>
-            <Grid item>            
-            <BardaszLogoDG w='220' h='220'/>
-            </Grid>
-            <Grid item alignItems='flex-start'>
-            
-            </Grid>
-            <Grid item alignItems='flex-start' justify='center' direction='column'>
-              <Avatar className={classes.avatar}>
-                <LockOutlinedIcon />            
-              </Avatar>
-              <Typography component="h6" variant="h6" color='textSecondary' justify='center' direction='column'>
-              Sign in
-              </Typography> 
-            </Grid>
-            
-          </Grid>
-        
-            <Grid>
-            
-            </Grid>   
-            <Grid>
-              <Grid>              
-                {userConnectionStatus /*login proceess status infiormation*/ }
-              </Grid>
-            </Grid>
-          <form className={classes.form} noValidate>
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              autoFocus       
-              onChange={e => dispatch(setEmail(e.target.value))}     
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"            
-              id="password"
-              autoComplete="current-password"            
-              onChange={e => dispatch(setPassword(e.target.value))}
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}           
-            />  
-            <CircularProgress 
-              variant="indeterminate" 
-              thickness={userProcessing ? .8: 0}                
-              />
-            <label>{userProcessing && "Login in progress..."}</label>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-              onClick={(e) => Validate(e)}            
-            >
-              Sign In
-            </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
-              <Grid item>             
-              </Grid>
-            </Grid>
-          </form>
-        </div>
-        <Box mt={4}>
-          <Footer />
-        </Box>
-      </Container>
-    );
+      }
   }
+if (localStorage.getItem('token')) {
+  return <App />
+}else{
+      
+  return (
+  
+    <Container component="main" maxWidth="xs">
+      <CssBaseline /> 
+      
+      <div className={classes.paper}>
+        <Grid container maxWidth="xs" direction='row' justify='space-between' alignItems='center'>
+          <Grid item>            
+          <BardaszLogoDG w='220' h='220'/>
+          </Grid>
+          <Grid item alignItems='flex-start'>
+          
+          </Grid>
+          <Grid item alignItems='flex-start' justify='center' direction='column'>
+            <Avatar className={classes.avatar}>
+              <LockOutlinedIcon />            
+            </Avatar>
+            <Typography component="h6" variant="h6" color='textSecondary' justify='center' direction='column'>
+            Sign in
+            </Typography> 
+          </Grid>
+          
+        </Grid>
+      
+          <Grid>
+          
+          </Grid>   
+          <Grid>
+            <Grid>              
+              {userConnectionStatus /*login proceess status infiormation*/ }
+            </Grid>
+          </Grid>
+        <form className={classes.form} noValidate>
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="email"
+            label="Email Address"
+            name="email"
+            autoComplete="email"
+            autoFocus       
+            onChange={e => dispatch(setEmail(e.target.value))}     
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            name="password"
+            label="Password"
+            type="password"            
+            id="password"
+            autoComplete="current-password"            
+            onChange={e => dispatch(setPassword(e.target.value))}
+          />
+          <FormControlLabel
+            control={<Checkbox value="remember" color="primary" />}           
+          />  
+          <CircularProgress 
+            variant="indeterminate" 
+            thickness={userProcessing ? .8: 0}                
+            />
+          <label>{userProcessing && "Login in progress..."}</label>
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+            onClick={(e) => Validate(e)}            
+          >
+            Sign In
+          </Button>
+          <Grid container>
+            <Grid item xs>
+              <Link href="#" variant="body2">
+                Forgot password?
+              </Link>
+            </Grid>
+            <Grid item>             
+            </Grid>
+          </Grid>
+        </form>
+      </div>
+      <Box mt={4}>
+        <Footer />
+      </Box>
+    </Container>
+  );}
+
 }
 
 export default Login;

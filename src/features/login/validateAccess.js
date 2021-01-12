@@ -19,57 +19,57 @@ async function ValidateAccess(email, password){
 
   
 
- try{  
-  const resp = await axios.get(urlApi, {params: userInfo});
-  
-  connectionResult.connectionStatusNumber = resp.request.status;  
-          
-    if (resp.request.status===200 && resp.data.length>0){
-      
-      statusLogin = true;                                                      // Login process ok   
-      
-      const {id, middle, lastname ,name, username, email, password, role} = resp.data[0]; 
-      connectionResult.result= 'Access granted. You are now logged in';
-      connectionResult.jwt = {token: "header.payload.sign"}
-
-      console.log(connectionResult.result);   
-      
-      userData.id= id;
-      userData.middle= middle;
-      userData.lastname= lastname;
-      userData.name= name;
-      userData.username= username;
-      userData.email= email;
-      userData.password= password;      
-      userData.role= role;
-
-      localStorage.setItem("token", connectionResult.jwt.token);
-      localStorage.setItem("role", role);
-      localStorage.setItem("name", name);      
-      localStorage.setItem("lastname", lastname);
-      localStorage.setItem("email", email);
-      
-      
-          
-    } else if (resp.request.status===200 && resp.data.length===0) {
-      
-      connectionResult.result= 'Email or password not registered';      
-      console.log(connectionResult.result);   // email/user no founded
+  try{  
+    const resp = await axios.get(urlApi, {params: userInfo});
     
-    } else {
-      connectionResult.result = 'There is a problem to conmunicate with the DB source'
-      console.log(connectionResult.result);
-    }
+    connectionResult.connectionStatusNumber = resp.request.status;  
+            
+      if (resp.request.status===200 && resp.data.length>0){
+        
+        statusLogin = true;                                                      // Login process ok   
+        
+        const {id, middle, lastname ,name, username, email, password, role} = resp.data[0]; 
+        connectionResult.result= 'Access granted. You are now logged in';
+        connectionResult.jwt = {token: "header.payload.sign"}
 
+        console.log(connectionResult.result);   
+        
+        userData.id= id;
+        userData.middle= middle;
+        userData.lastname= lastname;
+        userData.name= name;
+        userData.username= username;
+        userData.email= email;
+        userData.password= password;      
+        userData.role= role;
+
+        localStorage.setItem("token", connectionResult.jwt.token);
+        localStorage.setItem("role", role);
+        localStorage.setItem("name", name);      
+        localStorage.setItem("lastname", lastname);
+        localStorage.setItem("email", email);      
+            
+      } else if (resp.request.status===200 && resp.data.length===0) {
+        
+        connectionResult.result= 'Email or password not registered';      
+        console.log(connectionResult.result);   // email/user no founded
+      
+      } /* else {
+        connectionResult.result = 'There is a problem to conmunicate with the DB source'
+        console.log(connectionResult.result);
+      } */
+
+      return new Promise (function (status){     
+        status({status: statusLogin, userData, connectionResult});
+      })      
+
+  }catch(e){
+    connectionResult.result= `Something wrong happened. There is not connection with the Login DB. ${e}` ;
+    console.log(connectionResult.result);
     return new Promise (function (status){     
-      status({status: statusLogin, userData, connectionResult});
-    })      
-
-}catch(e){
-  connectionResult.result= `Something wrong happened. There is not connection with the Login DB. Error type: ${e}` ;
-  console.log(e)
-}
-
+        status({status: statusLogin, userData, connectionResult});
+    })
+  }
 }
 
 export default ValidateAccess

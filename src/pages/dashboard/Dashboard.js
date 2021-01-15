@@ -20,8 +20,8 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ExitToAppRoundedIcon from '@material-ui/icons/ExitToAppRounded';
 
-import Chart from './Chart';
-import Deposits from './Deposits';
+import Chart from './components/Chart';
+import Deposits from './components/Deposits';
 import Orders from './Orders';
 
 

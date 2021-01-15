@@ -1,11 +1,11 @@
 import React from 'react';
 import {useSelector, useDispatch} from 'react-redux';
-import { setEmail, setPassword, setProcessing, selectPassword, selectEmail, selectProcessing} from './loginSlice';
+import { setEmail, setPassword, setProcessing, selectPassword, selectEmail, selectProcessing} from '../reducers/loginSlice';
 import {setLoginTries, setConnectionStatus, setUserLogged, setUserInfo, setJwt,
-        selectLoginTries, selectConnectionStatus } from './statusSlice';
+        selectLoginTries, selectConnectionStatus } from '../reducers/statusSlice';
 
 
-import ValidateAccess from './validateAccess';
+import ValidateAccess from '../components/validateAccess';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import Avatar from '@material-ui/core/Avatar';
@@ -23,8 +23,8 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import Container from '@material-ui/core/Container';
 
-import BardaszLogoDG from '../images/BardaszLogoDarkGray'; 
-import App from '../../App';
+import BardaszLogoDG from '../images/logoBardasz/BardaszLogoDarkGray'; 
+import App from '../App';
 
 
 

@@ -1,6 +1,6 @@
 import React from 'react';
-import Login from './features/login/Login';
-import Menu from './dashboardTemplate/MenuJwt';
+import Login from './pages/Login';
+import Menu from './pages/menu/MenuJwt';
 
   
 function App() {

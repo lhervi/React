@@ -3,14 +3,14 @@ import { Redirect, BrowserRouter, Switch  } from 'react-router-dom';
 
 import Navbar from './Navigator';
 
-import Login from '../features/login/Login';
-import Dashboard from './Dashboard';
-import Orders from './Orders';
-import Customers from './Customers';
-import Reports from './Reports';
-import Integration from './Integration';
-import PageNotFound from './PageNotFound';
-import Logout from './Logout';
+import Login from '../../pages/Login';
+import Dashboard from '../../pages/dashboard/Dashboard.js';
+import Orders from '../../pages/dashboard/Orders';
+import Customers from '../../pages/dashboard/Customers.js';
+import Reports from '../../pages/dashboard/Reports.js';
+import Integration from '../../pages/dashboard/Integration.js';
+import PageNotFound from '../../pages/PageNotFound.js';
+import Logout from '../../pages/Logout.js';
 
 
 export default function Menu() {

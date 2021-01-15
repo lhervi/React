@@ -10,7 +10,7 @@ import PeopleIcon from '@material-ui/icons/People';
 import BarChartIcon from '@material-ui/icons/BarChart';
 import LayersIcon from '@material-ui/icons/Layers';
 import ExitToAppRoundedIcon from '@material-ui/icons/ExitToAppRounded';
-import theme from '../style/materialUiTheme';
+import theme from '../../styles/materialUiTheme';
 
 const linkHoverColor = theme.palette.secondary.main;
 

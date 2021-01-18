@@ -1,11 +1,12 @@
 import React from 'react';
+import loginStatus from '../components/login/loginStatus';
 import {useSelector, useDispatch} from 'react-redux';
 import { setEmail, setPassword, setProcessing, selectPassword, selectEmail, selectProcessing} from '../reducers/loginSlice';
 import {setLoginTries, setConnectionStatus, setUserLogged, setUserInfo, setJwt,
         selectLoginTries, selectConnectionStatus } from '../reducers/statusSlice';
 
 
-import ValidateAccess from '../components/validateAccess';
+import ValidateAccess from '../components/login/validateAccess';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import Avatar from '@material-ui/core/Avatar';
@@ -127,7 +128,8 @@ function Login() {
 
       }
   }
-if (localStorage.getItem('token')) {
+const log = loginStatus();
+if (log) {
   return <App />
 }else{
       

@@ -43,21 +43,18 @@ async function ValidateAccess(email, password){
         userData.password= password;      
         userData.role= role;
 
-        localStorage.setItem("token", connectionResult.jwt.token);
-        localStorage.setItem("role", role);
-        localStorage.setItem("name", name);      
-        localStorage.setItem("lastname", lastname);
-        localStorage.setItem("email", email);      
+        sessionStorage.setItem("token", connectionResult.jwt.token);
+        sessionStorage.setItem("role", role);
+        sessionStorage.setItem("name", name);      
+        sessionStorage.setItem("lastname", lastname);
+        sessionStorage.setItem("email", email);      
             
       } else if (resp.request.status===200 && resp.data.length===0) {
         
         connectionResult.result= 'Email or password not registered';      
         console.log(connectionResult.result);   // email/user no founded
       
-      } /* else {
-        connectionResult.result = 'There is a problem to conmunicate with the DB source'
-        console.log(connectionResult.result);
-      } */
+      } 
 
       return new Promise (function (status){     
         status({status: statusLogin, userData, connectionResult});

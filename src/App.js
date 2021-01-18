@@ -1,19 +1,20 @@
 import React from 'react';
 import Login from './pages/Login';
 import Menu from './pages/menu/MenuJwt';
+import PageNotFound from './pages/PageNotFound';
+import isLogin from './components/login/loginStatus';
+import validPath from './components/menu/validPath';
 
   
-function App() {
-    
-    const userLogged = localStorage.getItem('token') ? true: false
+function App() { 
 
-    console.log(userLogged)   
-    
-    if (!userLogged) {
+    if (!isLogin()) {
         return <Login/>
+    }else if (validPath()) {        
+        return  <Menu />
     }else{
-       return  <Menu />
-    } 
+        return <PageNotFound />
+    }
 }
 
 export default App;

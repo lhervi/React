@@ -17,7 +17,7 @@ export default function Logout() {
   const [open, setOpen] = React.useState(true);  
 
   const goAway =()=>{
-    localStorage.clear();
+    sessionStorage.clear();
     handleClose();
     window.location.href = '/';       
   }; 

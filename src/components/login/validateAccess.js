@@ -68,13 +68,4 @@ async function ValidateAccess(email, password){
     })
   }
 }
-
 export default ValidateAccess
-
-/* 
-  Usuarios de la BD API Fake
-  "email": "cgarcia@test.com","password": "123c"
-  "email": "rflores@test.com", "password": "123r"
-  "email": "mcarrera@test.com","password": "123m"
-  "email": "palmac@test.com", "password": "123p"
-*/  

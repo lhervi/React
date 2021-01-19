@@ -1,11 +1,14 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+
 import { Link } from 'react-router-dom';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 
 import { linkSetInfo } from '../../../components/menu/linkSetInfo';
-import { activeLinks } from '../../../components/menu/activeLinks';
+//import { activeLinks } from '../../../components/menu/activeLinks';
+import { selectMenuActiveLinks } from '../../../reducers/menuSlice';
 
 // eslint-disable-next-line no-unused-vars
 import DashboardIcon from '@material-ui/icons/Dashboard';
@@ -21,22 +24,25 @@ import LayersIcon from '@material-ui/icons/Layers';
 import ExitToAppRoundedIcon from '@material-ui/icons/ExitToAppRounded';
 import theme from '../../../styles/materialUiTheme';
 
-const linkHoverColor = theme.palette.secondary.main;
-const links = activeLinks();
+//const links = activeLinks();
+// selectMenuActiveLinks
 
-const linksToInterface = links.map(li => 
+const Navbar = ()=>{  
+
+  const links = useSelector(selectMenuActiveLinks);
+  const linkHoverColor = theme.palette.secondary.main;
+
+  const linksToInterface = links.map(li => 
                         
-  linkSetInfo[li] && linkSetInfo[li].iconObj &&
-   <ListItem button>
-      <ListItemIcon>{linkSetInfo[li].iconObj}</ListItemIcon>
-      <Link to={li} style={{"text-decoration":'none', "color":'inherit', "hover":{linkHoverColor}}}>
-        <ListItemText primary={linkSetInfo[li].name}/> 
-      </Link>       
-    </ListItem> 
-
-);
-
-const Navbar = ()=>{ 
+    linkSetInfo[li] && linkSetInfo[li].iconObj &&
+     <ListItem button>
+        <ListItemIcon>{linkSetInfo[li].iconObj}</ListItemIcon>
+        <Link to={li} style={{"text-decoration":'none', "color":'inherit', "hover":{linkHoverColor}}}>
+          <ListItemText primary={linkSetInfo[li].name}/> 
+        </Link>       
+      </ListItem> 
+  
+  );  
   
   return(
   

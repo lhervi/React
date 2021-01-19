@@ -53,5 +53,3 @@ export const selectUserInfo = state => state.status.userInfo;
 export const selectJwt = state => state.status.jwt;
 
 export default reducer;
-
- 

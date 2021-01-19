@@ -2,19 +2,18 @@ import React from 'react';
 import Login from './pages/Login';
 import Menu from './pages/menu/MenuJwt';
 import PageNotFound from './pages/PageNotFound';
-import isLogin from './components/login/loginStatus';
+import IsLogin from './components/login/LoginStatus';
 import validPath from './components/menu/validPath';
-
   
-function App() { 
+function App() {     
 
-    if (!isLogin()) {
+    if (!IsLogin()) {
         return <Login/>
-    }else if (validPath()) {        
-        return  <Menu />
+    }else if (validPath()) {
+       return  <Menu />
     }else{
         return <PageNotFound />
-    }
+    } 
 }
 
 export default App;

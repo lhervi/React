@@ -1,6 +1,6 @@
+
 import React from 'react';
 import { BrowserRouter, Switch  } from 'react-router-dom';
-
 
 import Navbar from './components/Navigator';
 
@@ -18,6 +18,7 @@ import PrivateRoute from './components/PrivateRoute';
 export default function Menu() {
 
     return (
+    
         <BrowserRouter>
             <Navbar />
             <Switch>                

@@ -1,4 +1,4 @@
-import isLogin from '../login/loginStatus';
+import IsLogin from '../login/LoginStatus';
 import { activeLinksSet } from './activeLinks';
 
 const login = '/login';
@@ -11,11 +11,11 @@ const filterPath = routeElements => {
     const roleLinkSet = activeLinksSet();   
 
     if (roleLinkSet.has(path)) {
-        if (!isLogin() && restricted) {
+        if (!IsLogin() && restricted) {
             return      
-        }else if ((!isLogin() && !restricted) || (isLogin() && path!==login)) {         
+        }else if ((!IsLogin() && !restricted) || (IsLogin() && path!==login)) {         
             return  path    
-        }else if (isLogin() && path===login){
+        }else if (IsLogin() && path===login){
             return home;
         }       
     }else{

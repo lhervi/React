@@ -8,9 +8,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Divider from '@material-ui/core/Divider';
 import WarningRoundedIcon from '@material-ui/icons/WarningRounded';
-
-
-
+import App from '../App';
 
 export default function Logout() {  
 
@@ -19,7 +17,8 @@ export default function Logout() {
   const goAway =()=>{
     sessionStorage.clear();
     handleClose();
-    window.location.href = '/';       
+    window.location.href = '/';
+    return <App />
   }; 
 
   const handleClose = () => {  

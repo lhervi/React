@@ -1,13 +1,18 @@
 import React from 'react';
-import loginStatus from '../components/login/loginStatus';
+import LoginStatus from '../components/login/LoginStatus';
 import {useSelector, useDispatch} from 'react-redux';
 import { setEmail, setPassword, setProcessing, selectPassword, selectEmail, selectProcessing} from '../reducers/loginSlice';
 import {setLoginTries, setConnectionStatus, setUserLogged, setUserInfo, setJwt,
-        selectLoginTries, selectConnectionStatus } from '../reducers/statusSlice';
+        selectLoginTries, selectConnectionStatus, } from '../reducers/statusSlice';
+import { setMenuActiveLinks } from '../reducers/menuSlice';
+import { activeLinks } from '../components/menu/activeLinks';
+
+//import RecoverSessionInfo from '../components/login/RecoverSession';
 
 
 import ValidateAccess from '../components/login/validateAccess';
 import CircularProgress from '@material-ui/core/CircularProgress';
+
 
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -38,6 +43,10 @@ function Login() {
     const userProcessing = useSelector(selectProcessing); 
     const userConnectionStatus = useSelector(selectConnectionStatus); 
     const userTries = useSelector(selectLoginTries);   
+    //const logged = useSelector(selectUserLogged);
+
+    const userData = {id:'', middle:'', lastname:'' ,name:'', username:'', 
+      email: userEmail, password: userPass, role:''};
 
     
     const useStyles = makeStyles((theme) => ({
@@ -93,17 +102,14 @@ function Login() {
       e.preventDefault();
 
       dispatch(setProcessing(true));                   //  Indicates that the processing access has begun        
-      const tr={tryResult:'', time:(()=>new Date())().toJSON(), email: userEmail}
-      const userData = {id:'', middle:'', lastname:'' ,name:'', username:'', 
-      email: userEmail, password: userPass, role:''};       
+      const tr={tryResult:'', time:(()=>new Date())().toJSON(), email: userEmail}            
       
       try{
         ValidateAccess(userEmail, userPass).then(function(validateAccessResult){        
           tr.tryResult = validateAccessResult.connectionResult.connectionStatusNumber; //HTML Code number Eg. 200 / 404
           const jwt = validateAccessResult.connectionResult.jwt 
           delay(5).then(function(result){               // Fake delay
-            if (validateAccessResult.status) {
-              dispatch(setUserLogged(true))          
+            if (validateAccessResult.status) {                        
               const {id, middle, lastname ,name, username, role} = validateAccessResult.userData;
               userData.Id = id;
               userData.lastname = lastname;
@@ -111,14 +117,24 @@ function Login() {
               userData.name = name;        
               userData.username = username;     
               userData.role = role; 
+
+              const al = activeLinks();
+              console.log(al);
+
+              dispatch(setMenuActiveLinks(al));
+
               dispatch(setUserInfo(userData)); 
               dispatch(setJwt(jwt));
+              dispatch(setUserLogged(true))   
+                                 
             };  // If ends
             dispatch(setLoginTries(tr));
             dispatch(setConnectionStatus(validateAccessResult.connectionResult.result));
             dispatch(setProcessing(false));
             console.log(`userTries: ${JSON.stringify(userTries)}`)
-            
+
+            //calcular los enlaces que le corresponden y actualizar el slice menu
+            //setMenuActiveLinks
             
           })
         })
@@ -128,13 +144,13 @@ function Login() {
 
       }
   }
-const log = loginStatus();
+
+const log = LoginStatus();
+
 if (log) {
-  return <App />
-}else{
-      
-  return (
-  
+  return <App />  
+}else{      
+  return (  
     <Container component="main" maxWidth="xs">
       <CssBaseline /> 
       
@@ -224,7 +240,6 @@ if (log) {
       </Box>
     </Container>
   );}
-
 }
 
 export default Login;

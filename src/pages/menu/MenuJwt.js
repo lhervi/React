@@ -4,7 +4,7 @@ import { BrowserRouter, Switch  } from 'react-router-dom';
 
 import Navbar from './components/Navigator';
 
-import Login from '../../pages/Login';
+import Login from '../LoginAuth0';
 import Dashboard from '../../pages/dashboard/Dashboard.js';
 import Orders from '../../pages/dashboard/Orders';
 import Customers from '../../pages/dashboard/Customers.js';
@@ -35,9 +35,4 @@ export default function Menu() {
         </BrowserRouter>
         
     )    
-}
-
-           
-                
-            
-      
+}     

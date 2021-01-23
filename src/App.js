@@ -1,19 +1,19 @@
 import React from 'react';
-import Login from './pages/Login';
 import Menu from './pages/menu/MenuJwt';
-import PageNotFound from './pages/PageNotFound';
-import IsLogin from './components/login/LoginStatus';
-import validPath from './components/menu/validPath';
+import Login from './pages/LoginAuth0';
+import { useSelector } from 'react-redux';
+import { selectUserLogged } from './reducers/statusSlice';
   
-function App() {     
+function App() {
 
-    if (!IsLogin()) {
-        return <Login/>
-    }else if (validPath()) {
-       return  <Menu />
-    }else{
-        return <PageNotFound />
-    } 
+    const logged = useSelector(selectUserLogged);
+
+    if (!logged) {
+        return <Login />       
+    }else{        
+        return <Menu />
+    }
+    
 }
 
 export default App;

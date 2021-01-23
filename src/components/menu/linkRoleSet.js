@@ -1,5 +1,6 @@
 //This object is a map that returns the valid path of each role
 //In a real app, this information should be readed from server
+/*
 
 export const roleSet = {
 
@@ -10,3 +11,5 @@ export const roleSet = {
     admin: ['/', '/login', '/dashboard', '/orders', '/customers', '/reports', '/integration', '/logout']
 
 }; 
+
+*/

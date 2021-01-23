@@ -1,3 +1,5 @@
+/* 
+
 import IsLogin from '../login/LoginStatus';
 import { activeLinksSet } from './activeLinks';
 
@@ -24,4 +26,6 @@ const filterPath = routeElements => {
 
 }
 
-export default filterPath;
+export default filterPath; 
+
+*/

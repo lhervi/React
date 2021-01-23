@@ -8,17 +8,22 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Divider from '@material-ui/core/Divider';
 import WarningRoundedIcon from '@material-ui/icons/WarningRounded';
-import App from '../App';
+//import App from '../App';
+
+import { useAuth0 } from "@auth0/auth0-react";
 
 export default function Logout() {  
 
+  
+  const { logout } = useAuth0();
   const [open, setOpen] = React.useState(true);  
 
   const goAway =()=>{
     sessionStorage.clear();
     handleClose();
-    window.location.href = '/';
-    return <App />
+        
+    logout({ returnTo: window.location.origin, client_id: 'Oe1FF26XXT9yXnHo6RJBCpaDYBKs6Yf6', federated: true});
+   
   }; 
 
   const handleClose = () => {  

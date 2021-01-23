@@ -1,19 +1,11 @@
-import { useSelector } from 'react-redux';
-import { selectUserLogged } from '../../reducers/statusSlice';
-import RecoverSession from './RecoverSession';
+/* 
+import { useAuth0 } from "@auth0/auth0-react";
 
-const IsLogin = ()=>{
+const IsLogin = ()=> {
+    const { isAuthenticated, user } = useAuth0();
+    console.log(user);
+    //if (isAuthenticated) {sessionStorage.setItem('email', 'user.email')}
+    return isAuthenticated
+}
 
-    const logged = useSelector (selectUserLogged);
-
-    if (!sessionStorage.getItem('token')) {
-        return false;
-    }else{
-        if (!logged) {
-            RecoverSession();
-        }
-        return true;
-    }
-} 
-
-export default IsLogin;
+export default IsLogin; */

@@ -8,30 +8,41 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Divider from '@material-ui/core/Divider';
 import WarningRoundedIcon from '@material-ui/icons/WarningRounded';
-//import App from '../App';
+
+import {setEmail, setProcessing} from '../reducers/loginSlice';
+import { setMenuActiveLinks } from '../reducers/menuSlice';
+import { setConnectionStatus, setUserLogged, setUserInfo } from '../reducers/statusSlice';
+
+import { useDispatch } from 'react-redux';
 
 import { useAuth0 } from "@auth0/auth0-react";
 
 export default function Logout() {  
 
+  const dispatch = useDispatch();
+  const userReset = {lastname:'', name:'', email:'', role:'guess'}    
   
   const { logout } = useAuth0();
   const [open, setOpen] = React.useState(true);  
 
-  const goAway =()=>{
-    sessionStorage.clear();
-    handleClose();
-        
+  const goAway =()=>{   
+    console.log('logout ini');
+    sessionStorage.clear();    
+    dispatch(setUserLogged(false));
+    dispatch(setEmail(''));
+    dispatch(setProcessing(false));
+    dispatch(setMenuActiveLinks('guess'));
+    dispatch(setConnectionStatus(''));    
+    dispatch(setUserInfo(userReset));
+    handleClose();        
     logout({ returnTo: window.location.origin, client_id: 'Oe1FF26XXT9yXnHo6RJBCpaDYBKs6Yf6', federated: true});
-   
+    console.log('logout end');
   }; 
 
   const handleClose = () => {  
     window.history.back();
     setOpen(false);
-  };
-
-  
+  };  
 
   return (
     <div>     
@@ -66,3 +77,11 @@ export default function Logout() {
     </div>
   );
 }
+
+/*
+
+export const {setEmail, setProcessing} = slice.actions;
+export const { setMenuActiveLinks } = slice.actions;
+export const { setConnectionStatus, setUserLogged, setUserInfo } = actions;
+
+*/

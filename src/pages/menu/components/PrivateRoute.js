@@ -1,8 +1,7 @@
 
 import React from 'react';
 import { Redirect } from 'react-router-dom';
-//import validPath from '../../../components/menu/validPath';
-//import filterPath from '../../../components/menu/filterPath';
+
 import { useSelector } from 'react-redux';
 import { selectUserLogged } from '../../../reducers/statusSlice';
 import { selectMenuActiveLinks } from '../../../reducers/menuSlice';

@@ -14,12 +14,7 @@ export const statusSlice = createSlice({
     },    
   },
   reducers: {
-    setLoginTries: (state, action) => {      
-      state.loginTries = [...state.loginTries, action.payload];          
-    },
-    ResetLoginTries: (state) => {      
-      state.loginTries = state.loginTries=[{tryResult:'', time:''}];          
-    },
+        
     setConnectionStatus: (state, action) => {      
       state.connectionStatus = action.payload;
     },
@@ -34,9 +29,9 @@ export const statusSlice = createSlice({
 
 const {actions, reducer} = statusSlice; 
 
-export const { setLoginTries, ResetLoginTries, setConnectionStatus, setUserLogged, setUserInfo } = actions;
+export const { setConnectionStatus, setUserLogged, setUserInfo } = actions;
 
-export const selectLoginTries = state => state.status.loginTries;
+
 export const selectConnectionStatus = state => state.status.connectionStatus;
 export const selectUserLogged = state => state.status.userLogged;
 export const selectUserInfo = state => state.status.userInfo;

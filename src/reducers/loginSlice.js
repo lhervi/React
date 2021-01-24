@@ -18,7 +18,6 @@ export const slice = createSlice({
 
 export const {setEmail, setProcessing} = slice.actions;
 export const selectEmail = state => state.login.email;
-
 export const selectProcessing = state => state.login.processing;
 
 export default slice.reducer;

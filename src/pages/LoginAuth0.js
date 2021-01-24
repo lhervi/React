@@ -2,7 +2,7 @@
 import React from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { setEmail, setProcessing} from '../reducers/loginSlice';
+import { setEmail, setProcessing, selectProcessing} from '../reducers/loginSlice';
 import {setConnectionStatus, setUserLogged, setUserInfo, selectUserLogged} from '../reducers/statusSlice';
 import { setMenuActiveLinks } from '../reducers/menuSlice';
 
@@ -33,8 +33,10 @@ import { useAuth0 } from "@auth0/auth0-react";
 function Login() {   
     
     const dispatch = useDispatch();
-    const { user, isLoading, isAuthenticated } = useAuth0();         
-    const userData = {lastname:'' , name:'',  email: '', role:'guess'};
+    const { user, isAuthenticated } = useAuth0();         
+    const userData = {lastname:'' , name:'',  email: '', role:'guess'};    
+
+    const processing = useSelector(selectProcessing);
 
     const useStyles = makeStyles((theme) => ({
       root: {
@@ -63,17 +65,6 @@ function Login() {
     }));
 
     const classes = useStyles();
-
-    /*
-    function delay(t) {       
-    
-      let miliseconds = Math.round(Math.random()*t*1000);      
-      return new Promise (function (cadena){      
-        setTimeout(cadena, miliseconds);      
-      })
-    } 
-    */
-
     
       function Footer() {
       return (
@@ -105,6 +96,7 @@ function Login() {
               userData.email=user.email;
               connectionResult.result= 'Access granted. You are now logged in';              
               sessionStorage.setItem('role', role);              
+              
               dispatch(setEmail(user.email));                  //  Update login slice      
               dispatch(setMenuActiveLinks(role));           //Menu slice
               dispatch(setUserInfo(userData));            //Status slice   
@@ -120,7 +112,7 @@ function Login() {
             dispatch(setProcessing(false));            
     }
 
-if (isAuthenticated) {  
+if (isAuthenticated) { 
   updateSlices();   
 } 
 
@@ -137,7 +129,7 @@ return (useSelector(selectUserLogged)) ? <App /> :
           <Grid item alignItems='flex-start'>
           
           </Grid>
-          <Grid item alignItems='flex-start' justify='center' direction='column'>
+          <Grid item  justify='center' direction='column'>
             <Avatar className={classes.avatar}>
               <LockOutlinedIcon />            
             </Avatar>
@@ -160,16 +152,16 @@ return (useSelector(selectUserLogged)) ? <App /> :
           
           <CircularProgress 
             variant="indeterminate" 
-            thickness={isLoading ? .8: 0}                
+            thickness={processing ? .8: 0}                
             />
-          <label>{isLoading && "Login in progress..."}</label> 
+          <label>{processing && "Login in progress..."}</label> 
             
             <LoginButton />
 
           <Grid container>
             <Grid item xs>
               <Link href="#" variant="body2">
-                Forgot password?
+                
               </Link>
             </Grid>
             <Grid item>             
